@@ -207,7 +207,7 @@ sShadowBorderColor	Border Color	境界の色	경계의 색	边界颜色	邊界�
 sShadowBorderRange	Border Range	境界の幅	경계의 폭	边界范围	邊界範圍
 sIgnoreBorderProperties	Ignore border properties	影範囲設定を無視して適用	범위 설정 무시	忽略边界设置	忽略邊界設定
 sFlat	Flat	平面化	플랫	平展    	平的
-sBacklightSetting	Backlight	逆光ライト	Backlight 설정	Backlight设置     （背光效果）	背光效果設定（Backlight）
+sBacklightSetting	Backlight	逆光ライト	Backlight 설정	Backlight 设置    （背光效果）	背光效果設定（Backlight）
 sBacklight	Backlight	逆光ライト	Backlight	背光效果	背光效果
 sBacklightTips	Add a backlight when the light is behind the model.	逆光時に光を乗せる表現ができます	라이트가 모델 뒤에 있을 때 백라이트를 추가하다	当摄像机对准模型的背光面时，为模型的受光面添加高光效果	當照明在模型後方時添加 Backlight。
 sDirectivity	Directivity	指向性	지향성	指向性	指向性
@@ -309,7 +309,7 @@ sEncryptionTips	Decrypt the mesh from 4 keys.	4つのキーによってメッシ
 sIgnoreEncryption	Ignore Encryption	Ignore Encryption	Ignore Encryption	Ignore Encryption	Ignore Encryption
 sKeys	Keys	Keys	Keys	Keys	Keys
 sNormalMapReflection	Normal Map & Reflection	ノーマルマップ・光沢設定	노멀 맵 광택 설정	法线贴图 & 反射设置	法線貼圖 & 反射設定
-sNormalMapSetting	Normal Map	ノーマルマップ設定	노멀 맵 설정	NormalMap设置 （法线贴图）	法線貼圖設定
+sNormalMapSetting	Normal Map	ノーマルマップ設定	노멀 맵 설정	NormalMap 设置（法线贴图）	法線貼圖設定
 sNormalMapTips	You can set the normal map.	ノーマルマップの設定ができます	노멀 맵을 설정할 수 있습니다	您可以在此设置法线贴图。	你可以設定法線貼圖。
 sNormalMap	Normal Map	ノーマルマップ	노멀 맵	法线贴图	法線貼圖
 sNormalMap2nd	Normal Map 2nd	ノーマルマップ2nd	노멀 맵 2nd	第二法线贴图	法線貼圖 2nd
@@ -331,7 +331,7 @@ sSpecularReal	Realistic	リアル	리얼	现实	現實
 sSpecularToon	Toon	トゥーン	툰	卡通	卡通
 sMultiLightSpecular	Multi Light Specular	複数ライトから光沢を生成	복수 라이트에서 광택 생성	从多个光源生成反射	從多個光源生成反射
 sApplyReflection	Environment Reflections	環境光の反射	환경광 반사	环境反射	環境反射
-sMatCapSetting	MatCap	マットキャップ設定	매트 캡 설정	MatCap 设置      （材质捕获）	MatCap 設定
+sMatCapSetting	MatCap	マットキャップ設定	매트 캡 설정	MatCap 设置       （材质捕获）	MatCap 設定
 sMatCap	MatCap	マットキャップ	매트 캡	MatCap	MatCap
 sMatCap2nd	MatCap 2nd	マットキャップ2nd	매트 캡 2nd	第二 MatCap	MatCap 2nd
 sBlendUV1	Blend UV1	UV1を合成	Blend UV1	Blend UV1	Blend UV1
@@ -345,7 +345,7 @@ sFresnelPower	Fresnel Power	リムライトの細さ	림 라이트의 벌금	菲
 sRimLightDirection	Light direction strength	ライト方向の影響度	라이트 방향의 영향도	光线方向影响	光線方向影響
 sRimDirectionRange	Direct light width	直接光の幅	직접 빛의 폭	直射光宽	直射光寬
 sRimIndirectionRange	Indirect light width	間接光の幅	간접 조명의 폭	间接光宽	間接光寬
-sGlitterSetting	Glitter	ラメ設定	Glitter 설정	Glitter 设置         （亮片效果）	亮粉效果設定（Glitter）
+sGlitterSetting	Glitter	ラメ設定	Glitter 설정	Glitter 设置          （亮片效果）	亮粉效果設定（Glitter）
 sGlitter	Glitter	ラメ	Glitter	亮片效果	亮粉效果
 sParticleSize	Particle Size	パーティクルサイズ	파티클 사이즈	粒子大小	粒子大小
 sContrast	Contrast	コントラスト	콘트라스트	对比度	對比度
