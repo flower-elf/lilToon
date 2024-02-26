@@ -40,7 +40,7 @@ sBlurMask	Blur Mask	ぼかし量マスク	흐림 효과 마스크	模糊噪声	�
 sAlphaR	Alpha (R)	透明度 (R)	투명도 (R)	透明度 (R)	透明度 (R)
 sMainColorPower	Main Color Power	メインカラーの強度	메인 컬러의 강도	主色强度	主色強度
 sEnableLighting	Enable Lighting	ライトの明るさを反映	라이팅을 적용	启用照明	啟用照明
-sUVSetting	UV Setting	UV設定	UV 설정	UV设置	UV 設定
+sUVSetting	UV Setting	UV設定	UV 설정	UV 设置	UV 設定
 sUVAnimation	UV Animation	UVアニメーション	UV 애니메이션	UV 动画	UV 動畫
 sOffset	Offset	Offset	Offset	Offset	Offset
 sScroll	Scroll	スクロール	스크롤	滚动	滾動
@@ -244,7 +244,7 @@ sTessellationEdge	Threshold length	閾値	길이의 한계	阈值	閾值長度
 sTessellationShrink	Shrink	縮小補正	축소	收缩幅度	縮減
 sTessellationFactor	Max Factor	最大分割数	최대 분할수	最大细分数	最大係數
 RimShade	RimShade	RimShade	RimShade	边缘阴影	邊緣陰影設定（RimShade）
-sEmissionSetting	Emission	発光設定	발광 설정	Emission设置     （自发光效果）	自發光設定
+sEmissionSetting	Emission	発光設定	발광 설정	Emission 设置    （自发光效果）	自發光設定
 sEmissionTips	You can set the color and blinking of the light.	発光の色や点滅に関する設定ができます	발광의 색이나 점멸에 관한 설정이 가능합니다	您可以在此设置灯光颜色和闪烁。	你可以設定燈光的顏色和閃爍。
 sEmission	Emission	発光テクスチャ	발광	自发光效果	自發光
 sEmission2nd	Emission 2nd	発光テクスチャ2nd	발광 2nd	次要自发光	自發光 2nd
@@ -426,7 +426,7 @@ sDialogGifToAtlas	Convert Gif to Atlas	Gifをアトラス化	Gif를 아틀라스
 sDialogTexPow2	Do you want to adjust the texture resolution to power of 2?	テクスチャ全体の解像度を2の累乗に合わせますか?	텍스처 전체 해상도를 2의 거듭 제곱에 맞게 하시겠습니까?	您要把纹理分辨率调整为 2 的 n 次方吗？	你要將貼圖解析度尺寸調整成 2 的 n 次方嗎？
 sDialogImportOldVer	The package you are importing is an older version than the already imported lilToon. Do you want to continue?	インポートしようとしているパッケージは既にインポートされているlilToonよりも古いバージョンです。続行しますか？	Import하고 있는 패키지는 이미 Import된 lilToon보다 오래된 버전입니다.속행할까요?	您要导入的 lilToon 版本早于已导入的 lilToon 版本。是否继续？	你要導入的包版本早於已導入的 lilToon 版本。是否繼續？
 sDialogImportPackage	The UPM version of lilToon has already been imported. Do you want to continue importing the unitypackage version? (This may cause script errors, etc.)	既にUPM版lilToonがインポートされています。unitypackage版のインポートを続行しますか？（これはスクリプトエラー等を引き起こす可能性があります。）	이미 UPM 버전 lilToon이 임포트 되어 있습니다.unity package 버전 가져오기를 계속하시겠습니까?(이것은 스크립트 에러등을 일으킬 가능성이 있습니다.)	已经导入了UPM版lilToon。是否继续导入unitypackage版本？（可能会导致脚本错误等一系列问题。）	已經導入了 UPM 版 lilToon。是否繼續導入 unitypackage 版？（這可能會導致腳本錯誤等。）
-sWarnOptimiseMeshData	Due to a bug in Unity, even necessary vertex data may be deleted. If the problem occurs, please turn off "Project Settings/Player/Optimize Mesh Data".	Unityのバグにより必要な頂点データまで削除されることがあります。不具合が発生する場合は"Project Settings/Player/Optimize Mesh Data"をオフにしてください。	Unity 버그로 인해 필요한 정점 데이터까지 삭제될 수 있습니다.오류가 발생할 경우 "Project Settings/Player/Optimize Mesh Data"를 꺼주세요.	Unity可能会错误删除所需的顶点数据。发生问题时，请关闭“Project Setting/Prer/Optimize Mesh Data” 选项。	Unity 可能會錯誤刪除所需的頂點資料。 發生問題時，請關閉「Project Setting/Player/Optimize Mesh Data」。
+sWarnOptimiseMeshData	Due to a bug in Unity, even necessary vertex data may be deleted. If the problem occurs, please turn off "Project Settings/Player/Optimize Mesh Data".	Unityのバグにより必要な頂点データまで削除されることがあります。不具合が発生する場合は"Project Settings/Player/Optimize Mesh Data"をオフにしてください。	Unity 버그로 인해 필요한 정점 데이터까지 삭제될 수 있습니다.오류가 발생할 경우 "Project Settings/Player/Optimize Mesh Data"를 꺼주세요.	Unity可能会错误删除所需的顶点数据。发生问题时，请关闭“Project Setting/Player/Optimize Mesh Data” 选项。	Unity 可能會錯誤刪除所需的頂點資料。 發生問題時，請關閉「Project Setting/Player/Optimize Mesh Data」。
 sPresets	Presets	プリセット	프리셋	预设	預設
 sPresetsNotAvailable	Presets are not available for this shader.	プリセットはこのシェーダーでは利用できません。	사전 설정이 쉐이더를 사용할 수 없습니다.	预设在此着色器中不可用。	預設在此著色器中不可用。
 sPresetIsMaterial	Currently selected is not a Material.	マテリアル以外が選択されています。	머티리얼 이외를 선택하고 있습니다.	当前选择的不是材质。	當前選擇的不是材質。
