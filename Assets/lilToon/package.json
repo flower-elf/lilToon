@@ -3,6 +3,10 @@
   "version": "1.7.2",
   "displayName": "lilToon",
   "description": "Feature-rich toon shader.",
+  "author": {
+    "name": "lilxyzw",
+    "url": "https://github.com/lilxyzw"
+  },
   "unity": "2018.1",
   "documentationUrl": "https://lilxyzw.github.io/lilToon/",
   "changelogUrl": "https://lilxyzw.github.io/lilToon/#/en-us/other/changelog",
