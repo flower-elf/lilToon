@@ -38,7 +38,7 @@ namespace lilToon.External
             {
                 var materials = GetMaterialsFromGameObject(avatarGameObject);
                 var clips = GetAnimationClipsFromGameObject(avatarGameObject);
-                SetShaderSettingBeforeBuild(materials, clips);
+                lilToonSetting.SetShaderSettingBeforeBuild(materials, clips);
             }
             catch(Exception e)
             {
@@ -46,8 +46,8 @@ namespace lilToon.External
                 Debug.Log("[lilToon] OnBuildRequested() failed");
             }
 
-            EditorApplication.delayCall -= SetShaderSettingAfterBuild;
-            EditorApplication.delayCall += SetShaderSettingAfterBuild;
+            EditorApplication.delayCall -= lilToonSetting.SetShaderSettingAfterBuild;
+            EditorApplication.delayCall += lilToonSetting.SetShaderSettingAfterBuild;
         }
 
         private static Material[] GetMaterialsFromGameObject(GameObject gameObject)
@@ -88,32 +88,6 @@ namespace lilToon.External
             }
 
             return clips.ToArray();
-        }
-
-        private static void SetShaderSettingBeforeBuild(Material[] materials, AnimationClip[] clips)
-        {
-            Type type = typeof(lilToonSetting);
-            var methods = type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic);
-            foreach(var method in methods)
-            {
-                var methodParams = method.GetParameters();
-                if(method.Name != "SetShaderSettingBeforeBuild" || methodParams.Length != 2 || methodParams[0].ParameterType != typeof(Material[])) continue;
-                method.Invoke(null, new object[]{materials,clips});
-                break;
-            }
-        }
-
-        private static void SetShaderSettingAfterBuild()
-        {
-            Type type = typeof(lilToonSetting);
-            var methods = type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic);
-            foreach(var method in methods)
-            {
-                var methodParams = method.GetParameters();
-                if(method.Name != "SetShaderSettingAfterBuild" || methodParams.Length != 0) continue;
-                method.Invoke(null, null);
-                break;
-            }
         }
 
         [MenuItem("GameObject/lilToon/[Debug] Generate bug report (CVR Avatar)", false, 23)]

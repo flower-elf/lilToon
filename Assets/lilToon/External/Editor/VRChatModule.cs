@@ -32,9 +32,9 @@ namespace lilToon.External
                 }
                 else
                 {
-                    SetShaderSettingBeforeBuild();
-                    EditorApplication.delayCall -= SetShaderSettingAfterBuild;
-                    EditorApplication.delayCall += SetShaderSettingAfterBuild;
+                    lilToonSetting.SetShaderSettingBeforeBuild();
+                    EditorApplication.delayCall -= lilToonSetting.SetShaderSettingAfterBuild;
+                    EditorApplication.delayCall += lilToonSetting.SetShaderSettingAfterBuild;
                 }
             }
             catch(Exception e)
@@ -51,7 +51,7 @@ namespace lilToon.External
             {
                 var materials = GetMaterialsFromGameObject(avatarGameObject);
                 var clips = GetAnimationClipsFromGameObject(avatarGameObject);
-                SetShaderSettingBeforeBuild(materials, clips);
+                lilToonSetting.SetShaderSettingBeforeBuild(materials, clips);
             }
             catch(Exception e)
             {
@@ -63,7 +63,7 @@ namespace lilToon.External
 
         public void OnPostprocessAvatar()
         {
-            SetShaderSettingAfterBuild();
+            lilToonSetting.SetShaderSettingAfterBuild();
         }
 
         private static Material[] GetMaterialsFromGameObject(GameObject gameObject)
@@ -121,45 +121,6 @@ namespace lilToon.External
             #endif
 
             return clips.ToArray();
-        }
-
-        private static void SetShaderSettingBeforeBuild(Material[] materials, AnimationClip[] clips)
-        {
-            Type type = typeof(lilToonSetting);
-            var methods = type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic);
-            foreach(var method in methods)
-            {
-                var methodParams = method.GetParameters();
-                if(method.Name != "SetShaderSettingBeforeBuild" || methodParams.Length != 2 || methodParams[0].ParameterType != typeof(Material[])) continue;
-                method.Invoke(null, new object[]{materials,clips});
-                break;
-            }
-        }
-
-        private static void SetShaderSettingBeforeBuild()
-        {
-            Type type = typeof(lilToonSetting);
-            var methods = type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic);
-            foreach(var method in methods)
-            {
-                var methodParams = method.GetParameters();
-                if(method.Name != "SetShaderSettingBeforeBuild" || methodParams.Length != 0) continue;
-                method.Invoke(null, null);
-                break;
-            }
-        }
-
-        private static void SetShaderSettingAfterBuild()
-        {
-            Type type = typeof(lilToonSetting);
-            var methods = type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic);
-            foreach(var method in methods)
-            {
-                var methodParams = method.GetParameters();
-                if(method.Name != "SetShaderSettingAfterBuild" || methodParams.Length != 0) continue;
-                method.Invoke(null, null);
-                break;
-            }
         }
 
         // Debug
