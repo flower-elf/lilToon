@@ -349,6 +349,22 @@ namespace lilToon
             #endif
         }
 
+        internal static void FixTransparentRenderQueue(SerializedProperty m_CustomRenderQueue, RenderingMode renderingMode)
+        {
+            #if LILTOON_VRCSDK3_WORLDS
+                if( renderingMode == RenderingMode.Transparent ||
+                    renderingMode == RenderingMode.Refraction ||
+                    renderingMode == RenderingMode.RefractionBlur ||
+                    renderingMode == RenderingMode.Fur ||
+                    renderingMode == RenderingMode.FurTwoPass ||
+                    renderingMode == RenderingMode.Gem
+                )
+                {
+                    m_CustomRenderQueue.intValue = 3000;
+                }
+            #endif
+        }
+
         public static void SetupMultiMaterial(Material material)
         {
             int tpmode = 0;

@@ -24,6 +24,10 @@ namespace lilToon
         private const string menuPathRefreshShaders         = menuPathAssets + "[Shader] Refresh shaders";
         private const string menuPathRemoveUnusedProperties = menuPathAssets + "[Material] Remove unused properties";
         private const string menuPathRunMigration           = menuPathAssets + "[Material] Run migration";
+        private const string menuPathBakeTextures           = menuPathAssets + "[Material] Bake Textures";
+        private const string menuPathConvertToMulti         = menuPathAssets + "[Material] Convert to Multi";
+        private const string menuPathConvertToLite          = menuPathAssets + "[Material] Convert to Lite";
+        private const string menuPathConvertToMToon         = menuPathAssets + "[Material] Convert to MToon";
         private const string menuPathConvertNormal          = menuPathAssets + "[Texture] Convert normal map (DirectX <-> OpenGL)";
         private const string menuPathPixelArtReduction      = menuPathAssets + "[Texture] Pixel art reduction";
         private const string menuPathConvertGifToAtlas      = menuPathAssets + "[Texture] Convert Gif to Atlas";
@@ -36,11 +40,15 @@ namespace lilToon
         private const int menuPriorityRefreshShaders            = menuPriorityAssets + 0;
         private const int menuPriorityRemoveUnusedProperties    = menuPriorityAssets + 20;
         private const int menuPriorityRunMigration              = menuPriorityAssets + 21;
-        private const int menuPriorityConvertNormal             = menuPriorityAssets + 22;
-        private const int menuPriorityPixelArtReduction         = menuPriorityAssets + 23;
-        private const int menuPriorityConvertGifToAtlas         = menuPriorityAssets + 24;
-        private const int menuPriorityConvertLUTToPNG           = menuPriorityAssets + 25;
-        private const int menuPrioritySetupFromFBX              = menuPriorityAssets + 26;
+        private const int menuPriorityBakeTextures              = menuPriorityAssets + 22;
+        private const int menuPriorityConvertToMulti            = menuPriorityAssets + 23;
+        private const int menuPriorityConvertToLite             = menuPriorityAssets + 24;
+        private const int menuPriorityConvertToMToon            = menuPriorityAssets + 25;
+        private const int menuPriorityConvertNormal             = menuPriorityAssets + 26;
+        private const int menuPriorityPixelArtReduction         = menuPriorityAssets + 27;
+        private const int menuPriorityConvertGifToAtlas         = menuPriorityAssets + 28;
+        private const int menuPriorityConvertLUTToPNG           = menuPriorityAssets + 29;
+        private const int menuPrioritySetupFromFBX              = menuPriorityAssets + 30;
         private const int menuPriorityFixLighting               = menuPriorityGameObject;
 
         private const string anchorName = "AutoAnchorObject";
@@ -99,6 +107,89 @@ namespace lilToon
         }
 
         //------------------------------------------------------------------------------------------------------------------------------
+        // Assets/lilToon/BakeTextures
+        [MenuItem(menuPathBakeTextures, false, menuPriorityBakeTextures)]
+        private static void BakeTextures()
+        {
+            var materials = Selection.objects.Where(o => o is Material).Select(o => (Material)o);
+            foreach(var m in materials)
+            {
+                lilMaterialBaker.CreateMToonMaterial(m);
+            }
+            EditorUtility.DisplayDialog("[lilToon] Bake Textures",GetLoc("sComplete"),GetLoc("sOK"));
+        }
+
+        [MenuItem(menuPathBakeTextures, true, menuPriorityBakeTextures)]
+        private static bool CheckBakeTextures()
+        {
+            return Selection.objects.Count(o => o is Material) > 0;
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
+        // Assets/lilToon/Convert To Multi
+        [MenuItem(menuPathConvertToMulti, false, menuPriorityConvertToMulti)]
+        private static void ConvertToMulti()
+        {
+            var materials = Selection.objects.Select(o => o as Material).Where(m => m && lilMaterialUtils.CheckShaderIslilToon(m) && !m.shader.name.Contains("Lite")).ToArray();
+            if(materials.Length == 0) return;
+            lilToonSetting shaderSetting = null;
+            lilToonSetting.InitializeShaderSetting(ref shaderSetting);
+            if(materials.Length == 1) lilMaterialBaker.CreateMultiMaterial(materials[0], shaderSetting.LIL_FEATURE_CLIPPING_CANCELLER);
+            else foreach(var m in materials) lilMaterialBaker.CreateMultiMaterial(m, shaderSetting.LIL_FEATURE_CLIPPING_CANCELLER);
+            EditorUtility.DisplayDialog("[lilToon] Convert To Multi",GetLoc("sComplete"),GetLoc("sOK"));
+        }
+
+        [MenuItem(menuPathConvertToMulti, true, menuPriorityConvertToMulti)]
+        private static bool CheckConvertToMulti()
+        {
+            return Selection.objects.Any(o => o is Material);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
+        // Assets/lilToon/Convert To Lite
+        [MenuItem(menuPathConvertToLite, false, menuPriorityConvertToLite)]
+        private static void ConvertToLite()
+        {
+            var materials = Selection.objects.Select(o => o as Material).Where(m => m && lilMaterialUtils.CheckShaderIslilToon(m) && !m.shader.name.Contains("Lite")).ToArray();
+            if(materials.Length == 0) return;
+            if(materials.Length == 1) lilMaterialBaker.CreateLiteMaterial(materials[0]);
+            else
+            {
+                var folder = Path.GetDirectoryName(AssetDatabase.GetAssetPath(materials[0])) + "/Lite/";
+                foreach(var m in materials) lilMaterialBaker.CreateLiteMaterial(m, folder + m.name + "_Lite.mat");
+            }
+            EditorUtility.DisplayDialog("[lilToon] Convert To Lite",GetLoc("sComplete"),GetLoc("sOK"));
+        }
+
+        [MenuItem(menuPathConvertToLite, true, menuPriorityConvertToLite)]
+        private static bool CheckConvertToLite()
+        {
+            return Selection.objects.Any(o => o is Material);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
+        // Assets/lilToon/Convert To MToon
+        [MenuItem(menuPathConvertToMToon, false, menuPriorityConvertToMToon)]
+        private static void ConvertToMToon()
+        {
+            var materials = Selection.objects.Select(o => o as Material).Where(m => m && lilMaterialUtils.CheckShaderIslilToon(m) && !m.shader.name.Contains("Lite")).ToArray();
+            if(materials.Length == 0) return;
+            if(materials.Length == 1) lilMaterialBaker.CreateMToonMaterial(materials[0]);
+            else
+            {
+                var folder = Path.GetDirectoryName(AssetDatabase.GetAssetPath(materials[0])) + "/MToon/";
+                foreach(var m in materials) lilMaterialBaker.CreateMToonMaterial(m, folder + m.name + "_MToon.mat");
+            }
+            EditorUtility.DisplayDialog("[lilToon] Convert To MToon",GetLoc("sComplete"),GetLoc("sOK"));
+        }
+
+        [MenuItem(menuPathConvertToMToon, true, menuPriorityConvertToMToon)]
+        private static bool CheckConvertToMToon()
+        {
+            return lilShaderManager.mtoon && Selection.objects.Any(o => o is Material);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
         // Assets/lilToon/Convert normal map (DirectX <-> OpenGL)
         [MenuItem(menuPathConvertNormal, false, menuPriorityConvertNormal)]
         private static void ConvertNormal()
@@ -111,7 +202,7 @@ namespace lilToon
             hsvgMaterial.EnableKeyword("_NORMAL_DXGL");
 
             Texture2D outTexture = null;
-            lilToonInspector.RunBake(ref outTexture, srcTexture, hsvgMaterial);
+            lilMaterialBaker.RunBake(ref outTexture, srcTexture, hsvgMaterial);
 
             // Save
             lilTextureUtils.SaveTextureToPng(path, "_conv", outTexture);
