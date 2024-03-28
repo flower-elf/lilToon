@@ -28,6 +28,11 @@
             "name": "com.vrchat.base",
             "expression": "",
             "define": "LILTOON_VRCSDK3"
+        },
+        {
+            "name": "com.vrchat.base",
+            "expression": "3.3",
+            "define": "LILTOON_VRCSDK3_3"
         }
     ],
     "noEngineReferences": false

@@ -18,7 +18,10 @@ namespace lilToon.External
 {
     //------------------------------------------------------------------------------------------------------------------------------
     // VRChat
-    public class VRChatModule : IVRCSDKBuildRequestedCallback, IVRCSDKPreprocessAvatarCallback, IVRCSDKPostprocessAvatarCallback
+    public class VRChatModule : IVRCSDKBuildRequestedCallback, IVRCSDKPreprocessAvatarCallback
+    #if LILTOON_VRCSDK3_3
+    , IVRCSDKPostprocessAvatarCallback
+    #endif
     {
         public int callbackOrder { get { return 100; } }
 
@@ -26,11 +29,13 @@ namespace lilToon.External
         {
             try
             {
+                #if !LILTOON_VRCSDK3_3
                 if(requestedBuildType == VRCSDKRequestedBuildType.Avatar)
                 {
                     lilEditorParameters.instance.forceOptimize = true;
                 }
-                else
+                #endif
+                if(requestedBuildType == VRCSDKRequestedBuildType.Scene)
                 {
                     lilToonSetting.SetShaderSettingBeforeBuild();
                     EditorApplication.delayCall -= lilToonSetting.SetShaderSettingAfterBuild;
@@ -52,6 +57,10 @@ namespace lilToon.External
                 var materials = GetMaterialsFromGameObject(avatarGameObject);
                 var clips = GetAnimationClipsFromGameObject(avatarGameObject);
                 lilToonSetting.SetShaderSettingBeforeBuild(materials, clips);
+                #if !LILTOON_VRCSDK3_3
+                EditorApplication.delayCall -= lilToonSetting.SetShaderSettingAfterBuild;
+                EditorApplication.delayCall += lilToonSetting.SetShaderSettingAfterBuild;
+                #endif
             }
             catch(Exception e)
             {
@@ -65,6 +74,21 @@ namespace lilToon.External
         {
             lilToonSetting.SetShaderSettingAfterBuild();
         }
+
+        #if LILTOON_VRCSDK3_3
+        [InitializeOnLoadMethod]
+        private static void StartUp()
+        {
+            VRC.SDKBase.Editor.VRC_SdkBuilder.RunExportAndTestAvatarBlueprint += (_) => {
+                lilEditorParameters.instance.forceOptimize = false;
+                return true;
+            };
+            VRC.SDKBase.Editor.VRC_SdkBuilder.RunExportAvatarBlueprint += (_) => {
+                lilEditorParameters.instance.forceOptimize = true;
+                return true;
+            };
+        }
+        #endif
 
         private static Material[] GetMaterialsFromGameObject(GameObject gameObject)
         {
