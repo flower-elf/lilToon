@@ -243,7 +243,7 @@ sTessellationTips	You can set the tessellation.	テッセレーションのか�
 sTessellationEdge	Threshold length	閾値	길이의 한계	阈值	閾值長度
 sTessellationShrink	Shrink	縮小補正	축소	收缩幅度	縮減
 sTessellationFactor	Max Factor	最大分割数	최대 분할수	最大细分数	最大係數
-RimShade	RimShade	RimShade	RimShade	边缘阴影	邊緣陰影設定（RimShade）
+sRimShade	RimShade	RimShade	RimShade	边缘阴影	邊緣陰影設定（RimShade）
 sEmissionSetting	Emission	発光設定	발광 설정	Emission 设置      (自发光效果)	自發光設定
 sEmissionTips	You can set the color and blinking of the light.	発光の色や点滅に関する設定ができます	발광의 색이나 점멸에 관한 설정이 가능합니다	您可以在此设置灯光颜色和闪烁。	你可以設定燈光的顏色和閃爍。
 sEmission	Emission	発光テクスチャ	발광	自发光效果	自發光
