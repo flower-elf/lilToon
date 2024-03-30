@@ -235,11 +235,6 @@ float4  _MainTex_ST;
     #endif
 #endif
 
-// Encryption
-#if defined(LIL_FEATURE_ENCRYPTION)
-    float4  _Keys;
-#endif
-
 // Outline
 #if !defined(LIL_FUR) && !defined(LIL_REFRACTION) && !defined(LIL_GEM)
     float4  _OutlineColor;
@@ -786,9 +781,6 @@ lilBool _Invisible;
     #if defined(LIL_FEATURE_AUDIOLINK_LOCAL)
         lilBool _AudioLinkAsLocal;
     #endif
-#endif
-#if defined(LIL_FEATURE_ENCRYPTION)
-    lilBool _IgnoreEncryption;
 #endif
 
 #if !defined(LIL_FUR) && !defined(LIL_REFRACTION) && !defined(LIL_GEM)

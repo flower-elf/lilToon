@@ -305,9 +305,6 @@ sIDMask	ID Mask	ID Mask	ID Mask	ID Mask	ID Mask
 sUDIMDiscard	UV Tile Discard	UV Tile Discard	UV Tile Discard	UV Tile Discard	UV Tile Discard
 sUDIMDiscardUV	Discard UV	Discard UV	Discard UV	Discard UV	Discard UV
 sUDIMDiscardMode	Discard Mode	削除モード	무시 모드	丢弃模式	丟棄模式
-sEncryption	Encryption	暗号化	암호화	加密	加密
-sEncryptionTips	Decrypt the mesh from 4 keys.	4つのキーによってメッシュを復号化します	4개의 키를 사용하여 메쉬를 복호화합니다	用 4 个密钥解密该网格	用 4 個密鑰解密該網格
-sIgnoreEncryption	Ignore Encryption	Ignore Encryption	Ignore Encryption	Ignore Encryption	Ignore Encryption
 sKeys	Keys	Keys	Keys	Keys	Keys
 sNormalMapReflection	Normal Map & Reflection	ノーマルマップ・光沢設定	노멀 맵 광택 설정	法线贴图 & 反射设置	法線貼圖 & 反射設定
 sNormalMapSetting	Normal Map	ノーマルマップ設定	노멀 맵 설정	NormalMap 设置      (法线贴图)	法線貼圖設定
@@ -519,7 +516,6 @@ sAnchorAudioLink	advanced/audiolink	advanced/audiolink	advanced/audiolink	advanc
 sAnchorDissolve	advanced/dissolve	advanced/dissolve	advanced/dissolve	advanced/dissolve	advanced/dissolve
 sAnchorIDMask	advanced/idmask	advanced/idmask	advanced/idmask	advanced/idmask	advanced/idmask
 sAnchorUDIMDiscard	advanced/uvtilediscard	advanced/uvtilediscard	advanced/uvtilediscard	advanced/uvtilediscard	advanced/uvtilediscard
-sAnchorEncryption	advanced/encryption	advanced/encryption	advanced/encryption	advanced/encryption	advanced/encryption
 sAnchorStencil	advanced/stencil	advanced/stencil	advanced/stencil	advanced/stencil	advanced/stencil
 sAnchorRendering	advanced/rendering	advanced/rendering	advanced/rendering	advanced/rendering	advanced/rendering
 sAnchorTessellation	advanced/tessellation	advanced/tessellation	advanced/tessellation	advanced/tessellation	advanced/tessellation

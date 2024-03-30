@@ -248,9 +248,6 @@ namespace lilToon
                 ).ToArray()
             );
         }
-
-        [Obsolete("This may be deleted in the future.")] public static void ApplySettingTemp(){}
-        [Obsolete("This may be deleted in the future.")] public static void SaveSettingTemp(){}
     }
 }
 #endif

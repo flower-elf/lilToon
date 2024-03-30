@@ -29,15 +29,6 @@ namespace lilToon
         TwoPass
     }
 
-    [System.Obsolete]
-    public enum BlendMode
-    {
-        Alpha,
-        Add,
-        Screen,
-        Mul
-    }
-
     public enum LightingPreset
     {
         Default,
@@ -81,7 +72,6 @@ namespace lilToon
         UDIMDiscard,
         Refraction,
         Fur,
-        Encryption,
         Stencil,
         Rendering,
         Tessellation,

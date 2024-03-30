@@ -106,7 +106,6 @@ LIL_V2F_TYPE vert(appdata input)
 
     //------------------------------------------------------------------------------------------------------------------------------
     // Vertex Modification
-    #include "lil_vert_encryption.hlsl"
     lilCustomVertexOS(input, uvMain, input.positionOS);
     #include "lil_vert_audiolink.hlsl"
     #if !defined(LIL_ONEPASS_OUTLINE)
@@ -124,7 +123,6 @@ LIL_V2F_TYPE vert(appdata input)
         //------------------------------------------------------------------------------------------------------------------------------
         // Vertex Modification
         #define LIL_MODIFY_PREVPOS
-        #include "lil_vert_encryption.hlsl"
         lilCustomVertexOS(input, uvMain, input.previousPositionOS);
         #include "lil_vert_audiolink.hlsl"
         #undef LIL_MODIFY_PREVPOS

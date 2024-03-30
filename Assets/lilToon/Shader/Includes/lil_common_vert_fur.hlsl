@@ -50,7 +50,6 @@ v2g vert(appdata input)
 
     //------------------------------------------------------------------------------------------------------------------------------
     // Vertex Modification
-    #include "lil_vert_encryption.hlsl"
     lilCustomVertexOS(input, uvMain, input.positionOS);
 
     //------------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +60,6 @@ v2g vert(appdata input)
             input.previousPositionOS -= input.precomputedVelocity;
         #endif
         #define LIL_MODIFY_PREVPOS
-        #include "lil_vert_encryption.hlsl"
         lilCustomVertexOS(input, uvMain, input.previousPositionOS);
         #undef LIL_MODIFY_PREVPOS
 
