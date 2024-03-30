@@ -11,13 +11,9 @@ This shader is developed for services using avatars (VRChat, etc.) and has the f
 
 # Support
 Supported Unity versions
-- Unity 2018.1 - Unity 2023.2
+- Unity 2019.4 - Unity 2023.2
 
 Tested version
-- Unity 2018.1.0f2 (Built-in RP)
-- Unity 2018.4.20f1 (Built-in RP / LWRP 4.10.0 / HDRP 4.10.0)
-- Unity 2019.2.21f1 (Built-in RP / LWRP 6.9.2 / HDRP 6.9.2)
-- Unity 2019.3.0f6 (Built-in RP / URP 7.1.8 / HDRP 7.1.8)
 - Unity 2019.4.31f1 (Built-in RP / URP 7.7.1 / HDRP 7.7.1)
 - Unity 2020.3.47f1 (Built-in RP / URP 10.10.1 / HDRP 10.10.1)
 - Unity 2021.3.23f1 (Built-in RP / URP 12.1.11 / HDRP 12.1.11)
@@ -36,9 +32,8 @@ Supported Shader Models
 
 Supported Rendering Pipelines
 - Built-in Render Pipeline
-- Lightweight Render Pipeline 4.0.0 - 6.9.2
-- Universal Render Pipeline 7.0.0 - 16.0.1
-- High Definition Render Pipeline 4.0.0 - 16.0.1
+- Universal Render Pipeline 7.7.1 - 16.0.1
+- High Definition Render Pipeline 7.7.1 - 16.0.1
 
 # Features
 - Main color x3 layers (Decal, Layer mask, Gif animation, Normal / Additive / Multiplicative / Screen blending)

@@ -1613,11 +1613,7 @@ namespace lilToon
 
         private void DrawSimpleGUI(Material material)
         {
-            #if UNITY_2019_1_OR_NEWER
             edSet.searchKeyWord = EditorGUILayout.TextField(edSet.searchKeyWord, EditorStyles.toolbarSearchField);
-            #else
-            edSet.searchKeyWord = EditorGUILayout.TextField(edSet.searchKeyWord);
-            #endif
 
             //------------------------------------------------------------------------------------------------------------------------------
             // Base Setting
@@ -1845,11 +1841,7 @@ namespace lilToon
 
         private void DrawAdvancedGUI(Material material)
         {
-            #if UNITY_2019_1_OR_NEWER
             edSet.searchKeyWord = EditorGUILayout.TextField(edSet.searchKeyWord, EditorStyles.toolbarSearchField);
-            #else
-            edSet.searchKeyWord = EditorGUILayout.TextField(edSet.searchKeyWord);
-            #endif
             if(isLite)
             {
                 //------------------------------------------------------------------------------------------------------------------------------
@@ -3722,9 +3714,7 @@ namespace lilToon
                 menu.AddItem(new GUIContent(GetLoc("sCopy")),               false, CopyProperties,  propertyBlock);
                 menu.AddItem(new GUIContent(GetLoc("sPaste")),              false, PasteProperties, new PropertyBlockData{propertyBlock = propertyBlock, shouldCopyTex = false});
                 menu.AddItem(new GUIContent(GetLoc("sPasteWithTexture")),   false, PasteProperties, new PropertyBlockData{propertyBlock = propertyBlock, shouldCopyTex = true});
-                #if UNITY_2019_3_OR_NEWER
-                    menu.AddItem(new GUIContent(GetLoc("sReset")),              false, ResetProperties, propertyBlock);
-                #endif
+                menu.AddItem(new GUIContent(GetLoc("sReset")),              false, ResetProperties, propertyBlock);
                 menu.AddItem(new GUIContent(GetLoc("sOpenManual")),         false, OpenHelpPage,    helpAnchor);
                 menu.ShowAsContext();
             }
@@ -3957,7 +3947,6 @@ namespace lilToon
 
         private void ResetProperties(PropertyBlock propertyBlock)
         {
-            #if UNITY_2019_3_OR_NEWER
             foreach(var p in AllProperties().Where(p =>
                 p.p != null &&
                 p.blocks.Any(b => b == propertyBlock) &&
@@ -3975,7 +3964,6 @@ namespace lilToon
                 if(propType == MaterialProperty.PropType.Range)     p.floatValue = shader.GetPropertyDefaultFloatValue(propID);
                 if(propType == MaterialProperty.PropType.Texture)   p.textureValue = null;
             }
-            #endif
         }
 
         private bool ShouldDrawBlock(PropertyBlock propertyBlock)

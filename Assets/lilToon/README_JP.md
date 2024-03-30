@@ -6,18 +6,14 @@ Version 1.7.2
 - 簡単（プリセットからワンクリック設定＆自作プリセットの保存、色調補正機能による色替え＆テクスチャ書き出し）
 - 美麗（白飛び防止、水中などでの透け防止、アンチエイリアスシェーディング）
 - 軽量（エディタが自動でシェーダーを書き換えて機能をオンオフ）
-- 長期間、様々な環境で利用可能（Unity2018～2023、BRP/LWRP/URP/HDRP）
+- 長期間、様々な環境で利用可能（Unity2019～2023、BRP/LWRP/URP/HDRP）
 - Unityの全ライティングに対応しStandardShaderに近い明るさに
 
 # 対応状況
 Unityバージョン
-- Unity 2018.1 - Unity 2023.2
+- Unity 2019.4 - Unity 2023.2
 
 動作確認環境
-- Unity 2018.1.0f2 (Built-in RP)
-- Unity 2018.4.20f1 (Built-in RP / LWRP 4.10.0 / HDRP 4.10.0)
-- Unity 2019.2.21f1 (Built-in RP / LWRP 6.9.2 / HDRP 6.9.2)
-- Unity 2019.3.0f6 (Built-in RP / URP 7.1.8 / HDRP 7.1.8)
 - Unity 2019.4.31f1 (Built-in RP / URP 7.7.1 / HDRP 7.7.1)
 - Unity 2020.3.47f1 (Built-in RP / URP 10.10.1 / HDRP 10.10.1)
 - Unity 2021.3.23f1 (Built-in RP / URP 12.1.11 / HDRP 12.1.11)
@@ -36,9 +32,8 @@ Unity 2022や2023の一部の古いバージョンではシェーダー更新時
 
 レンダリングパイプライン
 - Built-in Render Pipeline
-- Lightweight Render Pipeline 4.0.0 - 6.9.2
-- Universal Render Pipeline 7.0.0 - 16.0.1
-- High Definition Render Pipeline 4.0.0 - 16.0.1
+- Universal Render Pipeline 7.7.1 - 16.0.1
+- High Definition Render Pipeline 7.7.1 - 16.0.1
 
 # 主な機能
 - メインカラーx3レイヤー（デカール、レイヤーマスク、Gifアニメーション、通常・加算・乗算・スクリーン合成対応）

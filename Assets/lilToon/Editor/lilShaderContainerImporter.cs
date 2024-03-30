@@ -17,7 +17,6 @@ using UnityEditor.AssetImporters;
 namespace lilToon
 {
     #if LILTOON_DISABLE_ASSET_MODIFICATION == false
-    #if UNITY_2019_4_OR_NEWER
         [ScriptedImporter(0, "lilcontainer")]
         public class lilShaderContainerImporter : ScriptedImporter
         {
@@ -73,7 +72,6 @@ namespace lilToon
                 }
             }
         }
-    #endif
     #endif //LILTOON_DISABLE_ASSET_MODIFICATION
 
     public class lilShaderContainer
@@ -100,7 +98,6 @@ namespace lilToon
         private const string SKIP_VARIANTS_OUTLINE_SHADOWS  = "#pragma lil_skip_variants_outline_shadows";
 
         private const string INCLUDE_BRP                    = "Includes/lil_pipeline_brp.hlsl\"";
-        private const string INCLUDE_LWRP                   = "Includes/lil_pipeline_lwrp.hlsl\"";
         private const string INCLUDE_URP                    = "Includes/lil_pipeline_urp.hlsl\"";
         private const string INCLUDE_HDRP                   = "Includes/lil_pipeline_hdrp.hlsl\"";
 
@@ -130,10 +127,6 @@ namespace lilToon
         private const string LIL_LIGHTMODE_HDRP_FORWARD_0   = "ForwardOnly";
         private const string LIL_LIGHTMODE_HDRP_FORWARD_1   = "Forward";
         private const string LIL_LIGHTMODE_HDRP_FORWARD_2   = "SRPDefaultUnlit";
-
-        private const string LIL_LIGHTMODE_LWRP_FORWARD_0  = "LightweightForward";
-        private const string LIL_LIGHTMODE_LWRP_FORWARD_1  = "SRPDefaultUnlit";
-        private const string LIL_LIGHTMODE_LWRP_FORWARD_2  = "SRPDefaultUnlit";
 
         private const string LIL_LIGHTMODE_URP_7_FORWARD_0  = "UniversalForward";
         private const string LIL_LIGHTMODE_URP_7_FORWARD_1  = "LightweightForward";
@@ -225,10 +218,6 @@ namespace lilToon
                     RewriteForwardAdd(ref sb);
                     RewriteForwardAddShadow(ref sb);
                     break;
-                case lilRenderPipeline.LWRP:
-                    sb = ReadContainerFile(assetPath, "LWRP", ctx, doOptimize);
-                    ReplaceMultiCompiles(ref sb, version, indent, false);
-                    break;
                 case lilRenderPipeline.URP:
                     sb = ReadContainerFile(assetPath, "URP", ctx, doOptimize);
                     break;
@@ -308,11 +297,6 @@ namespace lilToon
                     sb.Replace(LIL_LIGHTMODE_FORWARD_0, LIL_LIGHTMODE_BRP_FORWARD_0);
                     sb.Replace(LIL_LIGHTMODE_FORWARD_1, LIL_LIGHTMODE_BRP_FORWARD_1);
                     sb.Replace(LIL_LIGHTMODE_FORWARD_2, LIL_LIGHTMODE_BRP_FORWARD_2);
-                    break;
-                case lilRenderPipeline.LWRP:
-                    sb.Replace(LIL_LIGHTMODE_FORWARD_0, LIL_LIGHTMODE_LWRP_FORWARD_0);
-                    sb.Replace(LIL_LIGHTMODE_FORWARD_1, LIL_LIGHTMODE_LWRP_FORWARD_1);
-                    sb.Replace(LIL_LIGHTMODE_FORWARD_2, LIL_LIGHTMODE_LWRP_FORWARD_2);
                     break;
                 case lilRenderPipeline.URP:
                     if(version.Major == 8)
@@ -407,7 +391,6 @@ namespace lilToon
                     sbInput.Append("            CBUFFER_END");
                     string inputText = sbInput.ToString();
                     sb.Replace(INCLUDE_BRP , INCLUDE_BRP  + inputText);
-                    sb.Replace(INCLUDE_LWRP, INCLUDE_LWRP + inputText);
                     sb.Replace(INCLUDE_URP , INCLUDE_URP  + inputText);
                     sb.Replace(INCLUDE_HDRP, INCLUDE_HDRP + inputText);
                 }
@@ -420,10 +403,6 @@ namespace lilToon
             {
                 sb.Replace("/SHADOW_CASTER_OUTLINE", "/SHADOW_CASTER");
             }
-
-            #if !UNITY_2019_4_OR_NEWER
-                sb.Replace("shader_feature_local", "shader_feature");
-            #endif
 
             sb.Replace("\r\n", "\r");
             sb.Replace("\n", "\r");
@@ -528,7 +507,6 @@ namespace lilToon
         private static void GetInsert(string line, AssetImportContext ctx)
         {
             string rpname = "BRP";
-            if(version.RP == lilRenderPipeline.LWRP) rpname = "LWRP";
             if(version.RP == lilRenderPipeline.URP) rpname = "URP";
             if(version.RP == lilRenderPipeline.HDRP) rpname = "HDRP";
             if(line.Contains(csdInsertPassPreTag))
@@ -1026,22 +1004,7 @@ namespace lilToon
 
         private static string GetMultiCompileForward(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile _ _MAIN_LIGHT_SHADOWS",
-                    "#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE",
-                    "#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS",
-                    "#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS",
-                    "#pragma multi_compile_fragment _ _SHADOWS_SOFT",
-                    "#pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE",
-                    "#pragma multi_compile _ DIRLIGHTMAP_COMBINED",
-                    "#pragma multi_compile _ LIGHTMAP_ON",
-                    "#pragma multi_compile_vertex _ FOG_LINEAR FOG_EXP FOG_EXP2",
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_FORWARD");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 if(version.Major >= 16)
                 {
@@ -1230,13 +1193,7 @@ namespace lilToon
 
         private static string GetMultiCompileForwardAdd(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_FORWARDADD");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 return GenerateIndentText(indent,
                     "#pragma multi_compile_instancing",
@@ -1260,13 +1217,7 @@ namespace lilToon
 
         private static string GetMultiCompileShadowCaster(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_SHADOWCASTER");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 if(version.Major >= 11)
                 {
@@ -1300,13 +1251,7 @@ namespace lilToon
 
         private static string GetMultiCompileDepthOnly(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_DEPTHONLY");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 return GenerateIndentText(indent,
                     "#pragma multi_compile_instancing",
@@ -1344,13 +1289,7 @@ namespace lilToon
 
         private static string GetMultiCompileDepthNormals(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_DEPTHNORMALS");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 return GenerateIndentText(indent,
                     "#pragma multi_compile_instancing",
@@ -1372,13 +1311,7 @@ namespace lilToon
 
         private static string GetMultiCompileMotionVectors(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_MOTIONVECTORS");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 if(version.Major >= 16)
                 {
@@ -1425,13 +1358,7 @@ namespace lilToon
 
         private static string GetMultiCompileSceneSelection(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing",
-                    "#define LIL_PASS_SCENESELECTION");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 return GenerateIndentText(indent,
                     "#pragma multi_compile_instancing",
@@ -1456,13 +1383,7 @@ namespace lilToon
 
         private static string GetMultiCompileMeta(PackageVersionInfos version, int indent)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma shader_feature EDITOR_VISUALIZATION",
-                    "#define LIL_PASS_META");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 return GenerateIndentText(indent,
                     "#pragma shader_feature EDITOR_VISUALIZATION",
@@ -1486,12 +1407,7 @@ namespace lilToon
 
         private static string GetMultiCompileInstancingLayer(PackageVersionInfos version, int indent, bool isDots = false)
         {
-            if(version.RP == lilRenderPipeline.LWRP)
-            {
-                return GenerateIndentText(indent,
-                    "#pragma multi_compile_instancing");
-            }
-            else if(version.RP == lilRenderPipeline.URP)
+            if(version.RP == lilRenderPipeline.URP)
             {
                 if(version.Major >= 12)
                 {
@@ -1645,9 +1561,7 @@ namespace lilToon
 
         private static void AddDependency(AssetImportContext ctx, string path)
         {
-            #if UNITY_2018_2_OR_NEWER
-                if(ctx != null) ctx.DependsOnSourceAsset(path);
-            #endif
+            if(ctx != null) ctx.DependsOnSourceAsset(path);
         }
     }
 }

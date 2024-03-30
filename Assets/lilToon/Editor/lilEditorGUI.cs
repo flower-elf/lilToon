@@ -938,11 +938,7 @@ namespace lilToon
         public static void LightmapEmissionFlagsProperty(MaterialEditor materialEditor)
         {
             if(!CheckPropertyToDraw("Global Illumination")) return;
-            #if UNITY_2019_1_OR_NEWER
-                materialEditor.LightmapEmissionFlagsProperty(0, true, true);
-            #else
-                materialEditor.LightmapEmissionFlagsProperty(0, true);
-            #endif
+            materialEditor.LightmapEmissionFlagsProperty(0, true, true);
         }
 
         private static int IntClamp(int val, int min, int max)

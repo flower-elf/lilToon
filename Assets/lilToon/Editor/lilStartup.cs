@@ -148,27 +148,25 @@ namespace lilToon
                 shaderSetting.previousVersion = lilConstants.currentVersionValue;
                 lilToonSetting.SaveShaderSetting(shaderSetting);
 
-                #if UNITY_2019_4_OR_NEWER
-                    // Update custom shaders
-                    var folders = new List<string>();
-                    foreach(var shaderPath in lilDirectoryManager.FindAssetsPath("t:shader").Where(p => p.Contains(".lilcontainer")))
-                    {
-                        string folder = Path.GetDirectoryName(shaderPath);
-                        if(folders.Contains(folder)) continue;
-                        var shader = AssetDatabase.LoadAssetAtPath<Shader>(shaderPath);
-                        int versionIndex = shader.FindPropertyIndex("_lilToonVersion");
-                        if(
-                            versionIndex != -1 &&
-                            shader.GetPropertyDefaultFloatValue(versionIndex) == lilConstants.currentVersionValue &&
-                            !ShaderUtil.ShaderHasError(shader)
-                        ) continue;
-                        folders.Add(folder);
-                    }
-                    foreach(var folder in folders)
-                    {
-                        AssetDatabase.ImportAsset(folder, ImportAssetOptions.ImportRecursive);
-                    }
-                #endif
+                // Update custom shaders
+                var folders = new List<string>();
+                foreach(var shaderPath in lilDirectoryManager.FindAssetsPath("t:shader").Where(p => p.Contains(".lilcontainer")))
+                {
+                    string folder = Path.GetDirectoryName(shaderPath);
+                    if(folders.Contains(folder)) continue;
+                    var shader = AssetDatabase.LoadAssetAtPath<Shader>(shaderPath);
+                    int versionIndex = shader.FindPropertyIndex("_lilToonVersion");
+                    if(
+                        versionIndex != -1 &&
+                        shader.GetPropertyDefaultFloatValue(versionIndex) == lilConstants.currentVersionValue &&
+                        !ShaderUtil.ShaderHasError(shader)
+                    ) continue;
+                    folders.Add(folder);
+                }
+                foreach(var folder in folders)
+                {
+                    AssetDatabase.ImportAsset(folder, ImportAssetOptions.ImportRecursive);
+                }
             }
 
             //------------------------------------------------------------------------------------------------------------------------------

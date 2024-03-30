@@ -557,13 +557,8 @@
 
 // Stereo
 #if defined(LIL_HDRP)
-    #if LIL_SRP_VERSION_GREATER_EQUAL(7, 1)
-        #define LIL_STEREO_MATRIX_V(i)     _XRViewMatrix[i]
-        #define LIL_STEREO_CAMERA_POS(i)   _XRWorldSpaceCameraPos[i]
-    #else
-        #define LIL_STEREO_MATRIX_V(i)     _XRViewConstants[i].viewMatrix
-        #define LIL_STEREO_CAMERA_POS(i)   _XRViewConstants[i].worldSpaceCameraPos
-    #endif
+    #define LIL_STEREO_MATRIX_V(i)     _XRViewMatrix[i]
+    #define LIL_STEREO_CAMERA_POS(i)   _XRWorldSpaceCameraPos[i]
 #else
     #define LIL_STEREO_MATRIX_V(i)     unity_StereoMatrixV[i]
     #define LIL_STEREO_CAMERA_POS(i)   unity_StereoWorldSpaceCameraPos[i]
@@ -1003,73 +998,6 @@ float3 lilGetObjectPosition()
     #define MetaVertexPosition(pos,uv1,uv2,l,d)     UnityMetaVertexPosition(pos,uv1,uv2,l,d)
 #elif defined(LIL_HDRP)
     #define LIGHT_SIMULATE_HQ
-
-    // Support for old version
-    #if LIL_SRP_VERSION_LOWER(4, 1)
-        #define LIL_HDRP_IGNORE_LIGHTDIMMER
-        float4 EvaluateAtmosphericScattering(PositionInputs posInput, float3 viewDirection, float4 col)
-        {
-            return EvaluateAtmosphericScattering(posInput, col);
-        }
-    #endif
-
-    #if LIL_SRP_VERSION_LOWER(4, 2)
-        float GetDirectionalShadowAttenuation(HDShadowContext shadowContext, float2 positionSS, float3 positionWS, float3 normalWS, int shadowIndex, float3 L)
-        {
-            return GetDirectionalShadowAttenuation(shadowContext, positionWS, normalWS, shadowIndex, L, positionSS);
-        }
-    #endif
-
-    #if LIL_SRP_VERSION_LOWER(5, 3)
-        float GetCurrentExposureMultiplier()
-        {
-            return 1.0;
-        }
-    #endif
-
-    #if LIL_SRP_VERSION_LOWER(6, 6)
-        float3 SampleCameraColor(float2 uv, float lod)
-        {
-            return LIL_SAMPLE_2D_LOD(_ColorPyramidTexture, s_trilinear_clamp_sampler, uv, lod).rgb;
-        }
-    #endif
-
-    #if LIL_SRP_VERSION_LOWER(6, 8)
-        float4 EvaluateLight_Directional(LightLoopContext lightLoopContext, PositionInputs posInput, DirectionalLightData light)
-        {
-            float4 color = float4(light.color.rgb, 1.0);
-
-            #if LIL_SRP_VERSION_GREATER_EQUAL(4, 1)
-                float cosZenithAngle = -light.forward.y;
-                float fragmentHeight = posInput.positionWS.y;
-                color.a = TransmittanceHeightFog(_HeightFogBaseExtinction, _HeightFogBaseHeight, _HeightFogExponents, cosZenithAngle, fragmentHeight);
-            #endif
-
-            if(light.cookieIndex >= 0)
-            {
-                float3 lightToSample = posInput.positionWS - light.positionRWS;
-                float3 cookie = EvaluateCookie_Directional(lightLoopContext, light, lightToSample);
-                color.rgb *= cookie;
-            }
-
-            return color;
-        }
-
-        void GetPunctualLightVectors(float3 positionWS, LightData light, out float3 L, out float4 distances)
-        {
-            float3 lightToSample;
-            GetPunctualLightVectors(positionWS, light, L, lightToSample, distances);
-        }
-    #endif
-
-    #if LIL_SRP_VERSION_LOWER(7, 1)
-        float3 TransformPreviousObjectToWorld(float3 previousPositionOS)
-        {
-            float4x4 previousModelMatrix = ApplyCameraTranslationToMatrix(unity_MatrixPreviousM);
-            return mul(previousModelMatrix, float4(previousPositionOS, 1.0)).xyz;
-        }
-    #endif
-
     float3 lilSelectPreviousPosition(float3 previousPositionOS, float3 positionOS)
     {
         return unity_MotionVectorsParams.x > 0 ? previousPositionOS : positionOS;
@@ -1117,10 +1045,8 @@ float3 lilGetObjectPosition()
     {
         #if LIL_SRP_VERSION_GREATER_EQUAL(10, 1)
             float4 reflectionCol = SampleEnv(lightLoopContext, lightData.envIndex, reflUVW, lod * lightData.roughReflections, lightData.rangeCompressionFactorCompensation, posInput.positionNDC);
-        #elif LIL_SRP_VERSION_GREATER_EQUAL(7, 1)
-            float4 reflectionCol = SampleEnv(lightLoopContext, lightData.envIndex, reflUVW, lod, lightData.rangeCompressionFactorCompensation);
         #else
-            float4 reflectionCol = SampleEnv(lightLoopContext, lightData.envIndex, reflUVW, lod);
+            float4 reflectionCol = SampleEnv(lightLoopContext, lightData.envIndex, reflUVW, lod, lightData.rangeCompressionFactorCompensation);
         #endif
         LIL_HDRP_INVDEEXPOSURE(reflectionCol);
         return reflectionCol;
@@ -1152,9 +1078,7 @@ float3 lilGetObjectPosition()
         lightLoopContext.shadowValue      = 1;
         lightLoopContext.sampleReflection = 0;
         lightLoopContext.contactShadow    = 0;
-        #if LIL_SRP_VERSION_GREATER_EQUAL(6, 7)
-            real contactShadowFade;
-        #endif
+        real contactShadowFade;
         #if LIL_SRP_VERSION_GREATER_EQUAL(12, 1)
             real splineVisibility;
         #endif
@@ -1300,18 +1224,14 @@ float3 lilGetObjectPosition()
         float4 color = float4(light.color.rgb, 1.0);
         color.a *= PunctualLightAttenuation(distances, light.rangeAttenuationScale, light.rangeAttenuationBias, light.angleScale, light.angleOffset);
 
-        #if !defined(LIGHT_EVALUATION_NO_HEIGHT_FOG) && LIL_SRP_VERSION_GREATER_EQUAL(4, 1)
+        #if !defined(LIGHT_EVALUATION_NO_HEIGHT_FOG)
             float cosZenithAngle = L.y;
             float distToLight = (light.lightType == GPULIGHTTYPE_PROJECTOR_BOX) ? distances.w : distances.x;
             float fragmentHeight = positionWS.y;
             color.a *= TransmittanceHeightFog(_HeightFogBaseExtinction, _HeightFogBaseHeight, _HeightFogExponents, cosZenithAngle, fragmentHeight, distToLight);
         #endif
 
-        #if LIL_SRP_VERSION_LOWER(7, 2)
-            if(light.cookieIndex >= 0)
-        #else
-            if(light.cookieMode != COOKIEMODE_NONE)
-        #endif
+        if(light.cookieMode != COOKIEMODE_NONE)
         {
             float3 lightToSample = positionWS - light.positionRWS;
             float4 cookie = EvaluateCookie_Punctual(lightLoopContext, light, lightToSample);
@@ -1762,9 +1682,6 @@ float3 lilGetObjectPosition()
     // Shadow caster
     float3 _LightDirection;
     float3 _LightPosition;
-    #if LIL_SRP_VERSION_LOWER(5, 1)
-        float4 _ShadowBias;
-    #endif
     float4 URPShadowPos(float4 positionOS, float3 normalOS, float bias)
     {
         float3 positionWS = TransformObjectToWorld(positionOS.xyz);
@@ -1778,12 +1695,7 @@ float3 lilGetObjectPosition()
 
         positionWS -= lightDirectionWS * bias;
 
-        #if LIL_SRP_VERSION_GREATER_EQUAL(5, 1)
-            float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
-        #else
-            float biasN = _ShadowBias.y - saturate(dot(lightDirectionWS, normalWS)) * _ShadowBias.y;
-            float4 positionCS = TransformWorldToHClip(positionWS + lightDirectionWS * _ShadowBias.x + normalWS * biasN);
-        #endif
+        float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
 
         #if UNITY_REVERSED_Z
             positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
@@ -1874,44 +1786,19 @@ float3 lilGetObjectPosition()
         #define LIL_APPLY_FOG_BASE(col,fogCoord)                 col.rgb = lerp(unity_FogColor.rgb,col.rgb,fogCoord)
         #define LIL_APPLY_FOG_COLOR_BASE(col,fogCoord,fogColor)  col.rgb = lerp(fogColor.rgb,col.rgb,fogCoord)
     #endif
-    #if LIL_SRP_VERSION_GREATER_EQUAL(7, 1)
-        float lilCalcFogFactor(float depth)
-        {
-            #if defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2)
-                return ComputeFogIntensity(ComputeFogFactor(depth));
-            #else
-                return 1.0;
-            #endif
-        }
-    #else
-        float lilCalcFogFactor(float depth)
-        {
-            #if defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2)
-                float factor = ComputeFogFactor(depth);
-                #if defined(FOG_EXP)
-                    return saturate(exp2(-factor));
-                #elif defined(FOG_EXP2)
-                    return saturate(exp2(-factor*factor));
-                #elif defined(FOG_LINEAR)
-                    return factor;
-                #else
-                    return 0.0;
-                #endif
-            #else
-                return 1.0;
-            #endif
-        }
-    #endif
+    float lilCalcFogFactor(float depth)
+    {
+        #if defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2)
+            return ComputeFogIntensity(ComputeFogFactor(depth));
+        #else
+            return 1.0;
+        #endif
+    }
 #endif
 
 // Meta
-#if !defined(LIL_BRP) && (LIL_SRP_VERSION_LOWER(5, 14))
-    #define LIL_TRANSFER_METAPASS(input,output) \
-        output.positionCS = MetaVertexPosition(input.positionOS, input.uv1, input.uv2, unity_LightmapST)
-#else
-    #define LIL_TRANSFER_METAPASS(input,output) \
-        output.positionCS = MetaVertexPosition(input.positionOS, input.uv1, input.uv2, unity_LightmapST, unity_DynamicLightmapST)
-#endif
+#define LIL_TRANSFER_METAPASS(input,output) \
+    output.positionCS = MetaVertexPosition(input.positionOS, input.uv1, input.uv2, unity_LightmapST, unity_DynamicLightmapST)
 
 #if defined(LIL_HDRP)
     #define LIL_IS_MIRROR           false

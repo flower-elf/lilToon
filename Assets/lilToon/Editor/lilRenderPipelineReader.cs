@@ -12,28 +12,16 @@ namespace lilToon
         {
             // Render Pipeline
             // BRP : null
-            // LWRP : LightweightPipeline.LightweightRenderPipelineAsset
             // URP : Universal.UniversalRenderPipelineAsset
             // HDRP : HighDefinition.HDRenderPipelineAsset
             string renderPipelineName = "";
-            #if UNITY_2019_3_OR_NEWER
-                if(GraphicsSettings.currentRenderPipeline != null)
-                {
-                    renderPipelineName = GraphicsSettings.currentRenderPipeline.ToString();
-                }
-            #else
-                if(GraphicsSettings.renderPipelineAsset != null)
-                {
-                    renderPipelineName = GraphicsSettings.renderPipelineAsset.ToString();
-                }
-            #endif
+            if(GraphicsSettings.currentRenderPipeline != null)
+            {
+                renderPipelineName = GraphicsSettings.currentRenderPipeline.ToString();
+            }
             if(renderPipelineName.Contains("Universal"))
             {
                 return lilRenderPipeline.URP;
-            }
-            else if(renderPipelineName.Contains("Lightweight"))
-            {
-                return lilRenderPipeline.LWRP;
             }
             else if(renderPipelineName.Contains("HDRenderPipeline"))
             {
@@ -45,24 +33,13 @@ namespace lilToon
         public static PackageVersionInfos GetRPInfos()
         {
             string renderPipelineName = "";
-            #if UNITY_2019_3_OR_NEWER
-                if(GraphicsSettings.currentRenderPipeline != null)
-                {
-                    renderPipelineName = GraphicsSettings.currentRenderPipeline.ToString();
-                }
-            #else
-                if(GraphicsSettings.renderPipelineAsset != null)
-                {
-                    renderPipelineName = GraphicsSettings.renderPipelineAsset.ToString();
-                }
-            #endif
+            if(GraphicsSettings.currentRenderPipeline != null)
+            {
+                renderPipelineName = GraphicsSettings.currentRenderPipeline.ToString();
+            }
             if(renderPipelineName.Contains("Universal"))
             {
                 return GetURPVersion();
-            }
-            else if(renderPipelineName.Contains("Lightweight"))
-            {
-                return GetLWRPVersion();
             }
             else if(renderPipelineName.Contains("HDRenderPipeline"))
             {
@@ -87,13 +64,6 @@ namespace lilToon
                 "30648b8d550465f4bb77f1e1afd0b37d";  // URP
             var version = ReadVersion(guid);
             version.RP = lilRenderPipeline.URP;
-            return version;
-        }
-
-        private static PackageVersionInfos GetLWRPVersion()
-        {
-            var version = ReadVersion("30648b8d550465f4bb77f1e1afd0b37d");
-            version.RP = lilRenderPipeline.LWRP;
             return version;
         }
 

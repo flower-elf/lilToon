@@ -316,11 +316,7 @@ namespace lilToon
                 if(!path.EndsWith(".fbx", StringComparison.OrdinalIgnoreCase)) continue;
 
                 var importer = (ModelImporter)AssetImporter.GetAtPath(path);
-                #if UNITY_2019_3_OR_NEWER
-                    importer.materialImportMode = ModelImporterMaterialImportMode.ImportStandard;
-                #else
-                    importer.importMaterials = true;
-                #endif
+                importer.materialImportMode = ModelImporterMaterialImportMode.ImportStandard;
 
                 string dirPath = Path.GetDirectoryName(path);
                 string materialFolder = dirPath + "/Materials";
