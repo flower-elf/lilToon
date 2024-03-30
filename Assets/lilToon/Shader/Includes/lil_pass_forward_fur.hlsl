@@ -182,7 +182,7 @@ float4 frag(v2f input) : SV_Target
         #endif
     #endif
 
-    fd.col.rgb += input.furLayer * pow((1-abs(dot(normalize(input.normalWS), fd.V))), _FurRimFresnelPower) * lerp(1,lilGray(fd.invLighting), _FurRimAntiLight) * _FurRimColor.rgb * fd.lightColor;
+    fd.col.rgb += input.furLayer * pow(saturate(1-abs(dot(normalize(input.normalWS), fd.V))), _FurRimFresnelPower) * lerp(1,lilGray(fd.invLighting), _FurRimAntiLight) * _FurRimColor.rgb * fd.lightColor;
 
     //------------------------------------------------------------------------------------------------------------------------------
     // Distance Fade
