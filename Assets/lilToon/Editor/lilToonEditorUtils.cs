@@ -103,7 +103,7 @@ namespace lilToon
         private static void RunMigration()
         {
             lilStartup.MigrateMaterials();
-            EditorUtility.DisplayDialog("[lilToon] Run migration",GetLoc("sComplete"),GetLoc("sOK"));
+            EditorUtility.DisplayDialog("[lilToon] Run migration",S("sComplete"),S("sOK"));
         }
 
         //------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ namespace lilToon
             {
                 lilMaterialBaker.CreateMToonMaterial(m);
             }
-            EditorUtility.DisplayDialog("[lilToon] Bake Textures",GetLoc("sComplete"),GetLoc("sOK"));
+            EditorUtility.DisplayDialog("[lilToon] Bake Textures",S("sComplete"),S("sOK"));
         }
 
         [MenuItem(menuPathBakeTextures, true, menuPriorityBakeTextures)]
@@ -136,7 +136,7 @@ namespace lilToon
             lilToonSetting.InitializeShaderSetting(ref shaderSetting);
             if(materials.Length == 1) lilMaterialBaker.CreateMultiMaterial(materials[0], shaderSetting.LIL_FEATURE_CLIPPING_CANCELLER);
             else foreach(var m in materials) lilMaterialBaker.CreateMultiMaterial(m, shaderSetting.LIL_FEATURE_CLIPPING_CANCELLER);
-            EditorUtility.DisplayDialog("[lilToon] Convert To Multi",GetLoc("sComplete"),GetLoc("sOK"));
+            EditorUtility.DisplayDialog("[lilToon] Convert To Multi",S("sComplete"),S("sOK"));
         }
 
         [MenuItem(menuPathConvertToMulti, true, menuPriorityConvertToMulti)]
@@ -158,7 +158,7 @@ namespace lilToon
                 var folder = Path.GetDirectoryName(AssetDatabase.GetAssetPath(materials[0])) + "/Lite/";
                 foreach(var m in materials) lilMaterialBaker.CreateLiteMaterial(m, folder + m.name + "_Lite.mat");
             }
-            EditorUtility.DisplayDialog("[lilToon] Convert To Lite",GetLoc("sComplete"),GetLoc("sOK"));
+            EditorUtility.DisplayDialog("[lilToon] Convert To Lite",S("sComplete"),S("sOK"));
         }
 
         [MenuItem(menuPathConvertToLite, true, menuPriorityConvertToLite)]
@@ -180,7 +180,7 @@ namespace lilToon
                 var folder = Path.GetDirectoryName(AssetDatabase.GetAssetPath(materials[0])) + "/MToon/";
                 foreach(var m in materials) lilMaterialBaker.CreateMToonMaterial(m, folder + m.name + "_MToon.mat");
             }
-            EditorUtility.DisplayDialog("[lilToon] Convert To MToon",GetLoc("sComplete"),GetLoc("sOK"));
+            EditorUtility.DisplayDialog("[lilToon] Convert To MToon",S("sComplete"),S("sOK"));
         }
 
         [MenuItem(menuPathConvertToMToon, true, menuPriorityConvertToMToon)]
@@ -265,7 +265,7 @@ namespace lilToon
             int finalWidth;
             int finalHeight;
             int scale;
-            if(EditorUtility.DisplayDialog("Dot Texture reduction",GetLoc("sUtilDotTexRedRatio"),"1/2","1/4"))
+            if(EditorUtility.DisplayDialog("Dot Texture reduction",S("sUtilDotTexRedRatio"),"1/2","1/4"))
             {
                 finalWidth = srcTexture.width / 2;
                 finalHeight = srcTexture.height / 2;
@@ -308,7 +308,7 @@ namespace lilToon
         {
             if(Selection.objects.Length == 0) return;
             var lts = Shader.Find("lilToon");
-            if(lts == null) EditorUtility.DisplayDialog("Setup From FBX",GetLoc("sUtilShaderNotFound"),GetLoc("sCancel"));
+            if(lts == null) EditorUtility.DisplayDialog("Setup From FBX",S("sUtilShaderNotFound"),S("sCancel"));
             Undo.RecordObjects(Selection.objects, "Setup From FBX");
             foreach(var selectionObj in Selection.objects)
             {
@@ -326,7 +326,7 @@ namespace lilToon
                 }
                 else
                 {
-                    if(!EditorUtility.DisplayDialog("Setup From FBX",GetLoc("sUtilMaterialAlreadyExist"),GetLoc("sYes"),GetLoc("sNo"))) return;
+                    if(!EditorUtility.DisplayDialog("Setup From FBX",S("sUtilMaterialAlreadyExist"),S("sYes"),S("sNo"))) return;
                 }
 
                 lilToonSetting shaderSetting = null;
@@ -605,7 +605,7 @@ namespace lilToon
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("[lilToon] Fix Lighting",GetLoc("sComplete"),GetLoc("sOK"));
+            EditorUtility.DisplayDialog("[lilToon] Fix Lighting",S("sComplete"),S("sOK"));
         }
 
         [MenuItem(menuPathFixLighting, true, menuPriorityFixLighting)]
@@ -821,7 +821,7 @@ namespace lilToon
                    assetPath.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase);
         }
 
-        public static string GetLoc(string value) { return lilLanguageManager.GetLoc(value); }
+        private static string S(string value) { return Localization.S(value); }
     }
 
 #if LILTOON_DISABLE_ASSET_MODIFICATION == false

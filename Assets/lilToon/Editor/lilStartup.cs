@@ -18,7 +18,7 @@ namespace lilToon
         {
             //------------------------------------------------------------------------------------------------------------------------------
             // Variables
-            lilLanguageManager.InitializeLanguage();
+            lilLanguageManager.UpdateLanguage();
 
             AssetDatabase.importPackageStarted -= PackageVersionChecker;
             AssetDatabase.importPackageStarted += PackageVersionChecker;
@@ -237,7 +237,7 @@ namespace lilToon
 
             if(lilDirectoryManager.GetSettingLockPath().Contains("Packages"))
             {
-                if(!EditorUtility.DisplayDialog("lilToon", lilLanguageManager.GetLoc("sDialogImportPackage"), lilLanguageManager.GetLoc("sYes"), lilLanguageManager.GetLoc("sNo")))
+                if(!EditorUtility.DisplayDialog("lilToon", Localization.S("sDialogImportPackage"), Localization.S("sYes"), Localization.S("sNo")))
                 {
                     CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow());
                     return;
@@ -252,7 +252,7 @@ namespace lilToon
 
             if(semPackage < semCurrent)
             {
-                if(!EditorUtility.DisplayDialog("lilToon", lilLanguageManager.GetLoc("sDialogImportOldVer"), lilLanguageManager.GetLoc("sYes"), lilLanguageManager.GetLoc("sNo")))
+                if(!EditorUtility.DisplayDialog("lilToon", Localization.S("sDialogImportOldVer"), Localization.S("sYes"), Localization.S("sNo")))
                 {
                     CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow());
                     return;

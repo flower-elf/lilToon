@@ -148,7 +148,7 @@ namespace lilToon
             position.x += position.width - 24;
             position.width = 24;
             if(GUI.Button(position, EditorGUIUtility.IconContent("_Help"), middleButton)){
-                Application.OpenURL(GetLoc("sManualURL") + helpAnchor);
+                Application.OpenURL(S("sManualURL") + helpAnchor);
             }
         }
 
@@ -161,7 +161,7 @@ namespace lilToon
                 GUILayout.Label(message, EditorStyles.wordWrappedMiniLabel);
                     GUILayout.BeginHorizontal();
                         GUILayout.FlexibleSpace();
-                        bool pressed = GUILayout.Button(GetLoc("sFixNow"));
+                        bool pressed = GUILayout.Button(S("sFixNow"));
                     GUILayout.EndHorizontal();
                 GUILayout.EndVertical();
             GUILayout.EndHorizontal();
@@ -364,8 +364,8 @@ namespace lilToon
                 if(isLeftOnly.floatValue == 1.0f) mirrorMode = 2;
 
                 EditorGUI.BeginChangeCheck();
-                string mmlabel = Event.current.alt ? isLeftOnly.name + ", " + isRightOnly.name + ", " + shouldFlipMirror.name : GetLoc("sMirrorMode");
-                mirrorMode = Popup(mmlabel,mirrorMode,new string[]{GetLoc("sMirrorModeNormal"),GetLoc("sMirrorModeFlip"),GetLoc("sMirrorModeLeft"),GetLoc("sMirrorModeRight"),GetLoc("sMirrorModeRightFlip")});
+                string mmlabel = Event.current.alt ? isLeftOnly.name + ", " + isRightOnly.name + ", " + shouldFlipMirror.name : S("sMirrorMode");
+                mirrorMode = Popup(mmlabel,mirrorMode,new string[]{S("sMirrorModeNormal"),S("sMirrorModeFlip"),S("sMirrorModeLeft"),S("sMirrorModeRight"),S("sMirrorModeRightFlip")});
                 if(EditorGUI.EndChangeCheck())
                 {
                     if(mirrorMode == 0)
@@ -409,8 +409,8 @@ namespace lilToon
                 if(shouldFlipCopy.floatValue == 1.0f) copyMode = 2;
 
                 EditorGUI.BeginChangeCheck();
-                string cmlabel = Event.current.alt ? shouldCopy.name + ", " + shouldFlipCopy.name : GetLoc("sCopyMode");
-                copyMode = Popup(cmlabel,copyMode,new string[]{GetLoc("sCopyModeNormal"),GetLoc("sCopyModeSymmetry"),GetLoc("sCopyModeFlip")});
+                string cmlabel = Event.current.alt ? shouldCopy.name + ", " + shouldFlipCopy.name : S("sCopyMode");
+                copyMode = Popup(cmlabel,copyMode,new string[]{S("sCopyModeNormal"),S("sCopyModeSymmetry"),S("sCopyModeFlip")});
                 if(EditorGUI.EndChangeCheck())
                 {
                     if(copyMode == 0)
@@ -468,17 +468,17 @@ namespace lilToon
                 if(copyMode > 0)
                 {
                     if(posX < 0.5f) posX = 1.0f - posX;
-                    posX = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.z" : GetLoc("sPositionX"), posX, 0.5f, 1.0f);
+                    posX = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.z" : S("sPositionX"), posX, 0.5f, 1.0f);
                 }
                 else
                 {
-                    posX = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.z" : GetLoc("sPositionX"), posX, 0.0f, 1.0f);
+                    posX = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.z" : S("sPositionX"), posX, 0.0f, 1.0f);
                 }
 
                 // Draw properties
-                posY = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.w" : GetLoc("sPositionY"), posY, 0.0f, 1.0f);
-                scaleX = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.x" : GetLoc("sScaleX"), scaleX, -1.0f, 1.0f);
-                scaleY = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.y" : GetLoc("sScaleY"), scaleY, -1.0f, 1.0f);
+                posY = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.w" : S("sPositionY"), posY, 0.0f, 1.0f);
+                scaleX = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.x" : S("sScaleX"), scaleX, -1.0f, 1.0f);
+                scaleY = EditorGUILayout.Slider(Event.current.alt ? tex.name + "_ST.y" : S("sScaleY"), scaleY, -1.0f, 1.0f);
                 if(EditorGUI.EndChangeCheck())
                 {
                     // Avoid division by zero
@@ -507,7 +507,7 @@ namespace lilToon
                 ScrollAndRotateGUI(SR);
             }
 
-            if(Button(GetLoc("sReset")) && EditorUtility.DisplayDialog(GetLoc("sDialogResetUV"),GetLoc("sDialogResetUVMes"),GetLoc("sYes"),GetLoc("sNo")))
+            if(Button(S("sReset")) && EditorUtility.DisplayDialog(S("sDialogResetUV"),S("sDialogResetUVMes"),S("sYes"),S("sNo")))
             {
                 uvMode.floatValue = 0.0f;
                 isDecal.floatValue = 0.0f;
@@ -536,7 +536,7 @@ namespace lilToon
             // Scroll label
             float labelWidth = EditorGUIUtility.labelWidth;
             var labelRect = new Rect(positionVec2.x, positionVec2.y, labelWidth, positionVec2.height);
-            EditorGUI.PrefixLabel(labelRect, new GUIContent(Event.current.alt ? prop.name + "_ST.xy" : GetLoc("sScroll")));
+            EditorGUI.PrefixLabel(labelRect, new GUIContent(Event.current.alt ? prop.name + "_ST.xy" : S("sScroll")));
 
             // Copy & Reset indent
             int indentBuf = EditorGUI.indentLevel;
@@ -550,7 +550,7 @@ namespace lilToon
             EditorGUI.indentLevel = indentBuf;
 
             // Rotate
-            rotate = EditorGUI.FloatField(EditorGUILayout.GetControlRect(), Event.current.alt ? prop.name + "_ST.w" : GetLoc("sRotate"), rotate);
+            rotate = EditorGUI.FloatField(EditorGUILayout.GetControlRect(), Event.current.alt ? prop.name + "_ST.w" : S("sRotate"), rotate);
 
             if(EditorGUI.EndChangeCheck())
             {
@@ -562,7 +562,7 @@ namespace lilToon
         {
             LocalizedProperty(m_MaterialEditor, hsvg);
             // Reset
-            if(Button(GetLoc("sReset")))
+            if(Button(S("sReset")))
             {
                 hsvg.vectorValue = lilConstants.defaultHSVG;
             }
@@ -622,12 +622,12 @@ namespace lilToon
 
         public static void DrawColorAsAlpha(MaterialProperty prop)
         {
-            DrawColorAsAlpha(prop, GetLoc("sAlpha"));
+            DrawColorAsAlpha(prop, S("sAlpha"));
         }
 
         public static void RemoveUnusedPropertiesGUI(Material material)
         {
-            if(Button(GetLoc("sRemoveUnused")))
+            if(Button(S("sRemoveUnused")))
             {
                 Undo.RecordObject(material, "Remove unused properties");
                 lilMaterialUtils.RemoveUnusedTexture(material, material.shader.name.Contains("Lite"));
@@ -636,7 +636,7 @@ namespace lilToon
 
         public static void SetAlphaIsTransparencyGUI(MaterialProperty tex)
         {
-            if(CheckPropertyToDraw(tex) && tex.textureValue is Texture2D && !((Texture2D)tex.textureValue).alphaIsTransparency && AutoFixHelpBox(GetLoc("sNotAlphaIsTransparency")))
+            if(CheckPropertyToDraw(tex) && tex.textureValue is Texture2D && !((Texture2D)tex.textureValue).alphaIsTransparency && AutoFixHelpBox(S("sNotAlphaIsTransparency")))
             {
                 string path = AssetDatabase.GetAssetPath(tex.textureValue);
                 var textureImporter = (TextureImporter)AssetImporter.GetAtPath(path);
@@ -654,7 +654,7 @@ namespace lilToon
         public static void UVSettingGUI(MaterialEditor m_MaterialEditor, MaterialProperty uvst, MaterialProperty uvsr)
         {
             if(!CheckPropertyToDraw(uvst, uvsr)) return;
-            EditorGUILayout.LabelField(GetLoc("sUVSetting"), boldLabel);
+            EditorGUILayout.LabelField(S("sUVSetting"), boldLabel);
             UVSettingGUI(m_MaterialEditor, uvst);
             LocalizedProperty(m_MaterialEditor, uvsr);
         }
@@ -665,7 +665,7 @@ namespace lilToon
             float f = prop.floatValue;
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = prop.hasMixedValue;
-            f = 1.0f - EditorGUILayout.Slider(Event.current.alt ? prop.name : GetLoc("sBorder"), 1.0f - f, 0.0f, 1.0f);
+            f = 1.0f - EditorGUILayout.Slider(Event.current.alt ? prop.name : S("sBorder"), 1.0f - f, 0.0f, 1.0f);
             EditorGUI.showMixedValue = false;
             if(EditorGUI.EndChangeCheck())
             {
@@ -749,7 +749,7 @@ namespace lilToon
             {
                 EditorGUI.indentLevel++;
                 UVSettingGUI(m_MaterialEditor, textureName);
-                LocalizedProperty(m_MaterialEditor, scrollRotate, GetLoc("sScroll"));
+                LocalizedProperty(m_MaterialEditor, scrollRotate, S("sScroll"));
                 EditorGUI.indentLevel--;
             }
         }
@@ -903,7 +903,7 @@ namespace lilToon
         public static void ConvertGifToAtlas(MaterialProperty tex, MaterialProperty decalAnimation, MaterialProperty decalSubParam, MaterialProperty isDecal)
         {
             #if SYSTEM_DRAWING
-                if(tex.textureValue != null && AssetDatabase.GetAssetPath(tex.textureValue).EndsWith(".gif", StringComparison.OrdinalIgnoreCase) && Button(GetLoc("sConvertGif")))
+                if(tex.textureValue != null && AssetDatabase.GetAssetPath(tex.textureValue).EndsWith(".gif", StringComparison.OrdinalIgnoreCase) && Button(S("sConvertGif")))
                 {
                     int frameCount, loopXY, duration;
                     float xScale, yScale;
@@ -987,7 +987,7 @@ namespace lilToon
         }
         #endregion
 
-        private static string GetLoc(string value) { return lilLanguageManager.GetLoc(value); }
+        private static string S(string value) { return Localization.S(value); }
     }
 }
 #endif

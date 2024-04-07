@@ -183,17 +183,17 @@ public class lilToonPreset : ScriptableObject
         private void OnGUI()
         {
             if(!(Selection.activeObject is Material)){
-                EditorGUILayout.LabelField(GetLoc("sPresetIsMaterial"));
+                EditorGUILayout.LabelField(S("sPresetIsMaterial"));
                 return;
             }
 
-            string[] sCategorys = { GetLoc("sPresetCategorySkin"),
-                                    GetLoc("sPresetCategoryHair"),
-                                    GetLoc("sPresetCategoryCloth"),
-                                    GetLoc("sPresetCategoryNature"),
-                                    GetLoc("sPresetCategoryInorganic"),
-                                    GetLoc("sPresetCategoryEffect"),
-                                    GetLoc("sPresetCategoryOther") };
+            string[] sCategorys = { S("sPresetCategorySkin"),
+                                    S("sPresetCategoryHair"),
+                                    S("sPresetCategoryCloth"),
+                                    S("sPresetCategoryNature"),
+                                    S("sPresetCategoryInorganic"),
+                                    S("sPresetCategoryEffect"),
+                                    S("sPresetCategoryOther") };
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
             var material = (Material)Selection.activeObject;
@@ -231,23 +231,23 @@ public class lilToonPreset : ScriptableObject
             }
 
             // Name
-            EditorGUILayout.LabelField(GetLoc("sPresetName"));
+            EditorGUILayout.LabelField(S("sPresetName"));
             for(int i = 0; i < langName.Length; i++)
             {
                 presetName[i] = EditorGUILayout.TextField(langName[i], presetName[i]);
             }
 
-            preset.category = (lilPresetCategory)EditorGUILayout.Popup(GetLoc("sPresetCategory"), (int)preset.category, sCategorys);
+            preset.category = (lilPresetCategory)EditorGUILayout.Popup(S("sPresetCategory"), (int)preset.category, sCategorys);
 
             // Features
             EditorGUILayout.Space();
-            isShowFeatures = lilEditorGUI.DrawSimpleFoldout(GetLoc("sPresetSaveTarget"), isShowFeatures);
+            isShowFeatures = lilEditorGUI.DrawSimpleFoldout(S("sPresetSaveTarget"), isShowFeatures);
             if(isShowFeatures)
             {
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                shouldSaveRenderingMode             = EditorGUILayout.ToggleLeft(GetLoc("sRenderingMode"), shouldSaveRenderingMode);
+                shouldSaveRenderingMode             = EditorGUILayout.ToggleLeft(S("sRenderingMode"), shouldSaveRenderingMode);
                 shouldSaveQueue                     = EditorGUILayout.ToggleLeft("Render Queue", shouldSaveQueue);
-                shouldSaveMainTex2Outline           = EditorGUILayout.ToggleLeft(GetLoc("sPresetMainTex2Outline"), shouldSaveMainTex2Outline);
+                shouldSaveMainTex2Outline           = EditorGUILayout.ToggleLeft(S("sPresetMainTex2Outline"), shouldSaveMainTex2Outline);
 
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginHorizontal();
@@ -255,72 +255,72 @@ public class lilToonPreset : ScriptableObject
                 if(GUILayout.Button("Deselect All")) ToggleAllFeatures(false);
                 EditorGUILayout.EndHorizontal();
 
-                EditorGUILayout.LabelField(GetLoc("sBaseSetting"), EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(S("sBaseSetting"), EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                shouldSaveBase                      = EditorGUILayout.ToggleLeft(GetLoc("sBaseSetting"), shouldSaveBase);
-                shouldSaveLighting                  = EditorGUILayout.ToggleLeft(GetLoc("sLightingSettings"), shouldSaveLighting);
-                shouldSaveUV                        = EditorGUILayout.ToggleLeft(GetLoc("sMainUV"), shouldSaveUV);
+                shouldSaveBase                      = EditorGUILayout.ToggleLeft(S("sBaseSetting"), shouldSaveBase);
+                shouldSaveLighting                  = EditorGUILayout.ToggleLeft(S("sLightingSettings"), shouldSaveLighting);
+                shouldSaveUV                        = EditorGUILayout.ToggleLeft(S("sMainUV"), shouldSaveUV);
                 EditorGUI.indentLevel--;
 
-                EditorGUILayout.LabelField(GetLoc("sColors"), EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(S("sColors"), EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                shouldSaveMain                      = EditorGUILayout.ToggleLeft(GetLoc("sMainColor"), shouldSaveMain);
-                shouldSaveMain2nd                   = EditorGUILayout.ToggleLeft(GetLoc("sMainColor2nd"), shouldSaveMain2nd);
-                shouldSaveMain3rd                   = EditorGUILayout.ToggleLeft(GetLoc("sMainColor3rd"), shouldSaveMain3rd);
-                shouldSaveAlphaMask                 = EditorGUILayout.ToggleLeft(GetLoc("sAlphaMask"), shouldSaveAlphaMask);
-                shouldSaveShadow                    = EditorGUILayout.ToggleLeft(GetLoc("sShadow"), shouldSaveShadow);
-                shouldSaveEmission                  = EditorGUILayout.ToggleLeft(GetLoc("sEmission"), shouldSaveEmission);
-                shouldSaveEmission2nd               = EditorGUILayout.ToggleLeft(GetLoc("sEmission2nd"), shouldSaveEmission2nd);
+                shouldSaveMain                      = EditorGUILayout.ToggleLeft(S("sMainColor"), shouldSaveMain);
+                shouldSaveMain2nd                   = EditorGUILayout.ToggleLeft(S("sMainColor2nd"), shouldSaveMain2nd);
+                shouldSaveMain3rd                   = EditorGUILayout.ToggleLeft(S("sMainColor3rd"), shouldSaveMain3rd);
+                shouldSaveAlphaMask                 = EditorGUILayout.ToggleLeft(S("sAlphaMask"), shouldSaveAlphaMask);
+                shouldSaveShadow                    = EditorGUILayout.ToggleLeft(S("sShadow"), shouldSaveShadow);
+                shouldSaveEmission                  = EditorGUILayout.ToggleLeft(S("sEmission"), shouldSaveEmission);
+                shouldSaveEmission2nd               = EditorGUILayout.ToggleLeft(S("sEmission2nd"), shouldSaveEmission2nd);
                 EditorGUI.indentLevel--;
 
-                EditorGUILayout.LabelField(GetLoc("sNormalMapReflection"), EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(S("sNormalMapReflection"), EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                shouldSaveNormalMap                 = EditorGUILayout.ToggleLeft(GetLoc("sNormalMap"), shouldSaveNormalMap);
-                shouldSaveNormalMap2nd              = EditorGUILayout.ToggleLeft(GetLoc("sNormalMap2nd"), shouldSaveNormalMap2nd);
-                shouldSaveAnisotropy                = EditorGUILayout.ToggleLeft(GetLoc("sAnisotropy"), shouldSaveAnisotropy);
-                shouldSaveRimShade                  = EditorGUILayout.ToggleLeft(GetLoc("sRimShade"), shouldSaveRimShade);
-                shouldSaveBacklight                 = EditorGUILayout.ToggleLeft(GetLoc("sBacklight"), shouldSaveBacklight);
-                shouldSaveReflection                = EditorGUILayout.ToggleLeft(GetLoc("sReflection"), shouldSaveReflection);
-                shouldSaveMatCap                    = EditorGUILayout.ToggleLeft(GetLoc("sMatCap"), shouldSaveMatCap);
-                shouldSaveMatCap2nd                 = EditorGUILayout.ToggleLeft(GetLoc("sMatCap2nd"), shouldSaveMatCap2nd);
-                shouldSaveRim                       = EditorGUILayout.ToggleLeft(GetLoc("sRimLight"), shouldSaveRim);
-                shouldSaveGlitter                   = EditorGUILayout.ToggleLeft(GetLoc("sGlitter"), shouldSaveGlitter);
-                shouldSaveGem                       = EditorGUILayout.ToggleLeft(GetLoc("sGem"), shouldSaveGem);
+                shouldSaveNormalMap                 = EditorGUILayout.ToggleLeft(S("sNormalMap"), shouldSaveNormalMap);
+                shouldSaveNormalMap2nd              = EditorGUILayout.ToggleLeft(S("sNormalMap2nd"), shouldSaveNormalMap2nd);
+                shouldSaveAnisotropy                = EditorGUILayout.ToggleLeft(S("sAnisotropy"), shouldSaveAnisotropy);
+                shouldSaveRimShade                  = EditorGUILayout.ToggleLeft(S("sRimShade"), shouldSaveRimShade);
+                shouldSaveBacklight                 = EditorGUILayout.ToggleLeft(S("sBacklight"), shouldSaveBacklight);
+                shouldSaveReflection                = EditorGUILayout.ToggleLeft(S("sReflection"), shouldSaveReflection);
+                shouldSaveMatCap                    = EditorGUILayout.ToggleLeft(S("sMatCap"), shouldSaveMatCap);
+                shouldSaveMatCap2nd                 = EditorGUILayout.ToggleLeft(S("sMatCap2nd"), shouldSaveMatCap2nd);
+                shouldSaveRim                       = EditorGUILayout.ToggleLeft(S("sRimLight"), shouldSaveRim);
+                shouldSaveGlitter                   = EditorGUILayout.ToggleLeft(S("sGlitter"), shouldSaveGlitter);
+                shouldSaveGem                       = EditorGUILayout.ToggleLeft(S("sGem"), shouldSaveGem);
                 EditorGUI.indentLevel--;
 
-                EditorGUILayout.LabelField(GetLoc("sAdvanced"), EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(S("sAdvanced"), EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                shouldSaveParallax                  = EditorGUILayout.ToggleLeft(GetLoc("sParallax"), shouldSaveParallax);
-                shouldSaveDistanceFade              = EditorGUILayout.ToggleLeft(GetLoc("sDistanceFade"), shouldSaveDistanceFade);
-                shouldSaveAudioLink                 = EditorGUILayout.ToggleLeft(GetLoc("sAudioLink"), shouldSaveAudioLink);
-                shouldSaveDissolve                  = EditorGUILayout.ToggleLeft(GetLoc("sDissolve"), shouldSaveDissolve);
-                shouldSaveRefraction                = EditorGUILayout.ToggleLeft(GetLoc("sRefraction"), shouldSaveRefraction);
-                shouldSaveTessellation              = EditorGUILayout.ToggleLeft(GetLoc("sTessellation"), shouldSaveTessellation);
-                shouldSaveOutline                   = EditorGUILayout.ToggleLeft(GetLoc("sOutline"), shouldSaveOutline);
+                shouldSaveParallax                  = EditorGUILayout.ToggleLeft(S("sParallax"), shouldSaveParallax);
+                shouldSaveDistanceFade              = EditorGUILayout.ToggleLeft(S("sDistanceFade"), shouldSaveDistanceFade);
+                shouldSaveAudioLink                 = EditorGUILayout.ToggleLeft(S("sAudioLink"), shouldSaveAudioLink);
+                shouldSaveDissolve                  = EditorGUILayout.ToggleLeft(S("sDissolve"), shouldSaveDissolve);
+                shouldSaveRefraction                = EditorGUILayout.ToggleLeft(S("sRefraction"), shouldSaveRefraction);
+                shouldSaveTessellation              = EditorGUILayout.ToggleLeft(S("sTessellation"), shouldSaveTessellation);
+                shouldSaveOutline                   = EditorGUILayout.ToggleLeft(S("sOutline"), shouldSaveOutline);
                 if(
                     renderingMode == RenderingMode.Fur ||
                     renderingMode == RenderingMode.FurCutout ||
                     renderingMode == RenderingMode.FurTwoPass
                 )
                 {
-                    shouldSaveFur                       = EditorGUILayout.ToggleLeft(GetLoc("sFur"), shouldSaveFur);
-                    shouldSaveFurRendering              = EditorGUILayout.ToggleLeft(GetLoc("sRenderingSetting") + " - " + GetLoc("sFur"), shouldSaveFurRendering);
+                    shouldSaveFur                       = EditorGUILayout.ToggleLeft(S("sFur"), shouldSaveFur);
+                    shouldSaveFurRendering              = EditorGUILayout.ToggleLeft(S("sRenderingSetting") + " - " + S("sFur"), shouldSaveFurRendering);
                 }
                 else
                 {
                     shouldSaveFur                       = false;
                     shouldSaveFurRendering              = false;
                 }
-                shouldSaveStencil                   = EditorGUILayout.ToggleLeft(GetLoc("sStencilSetting"), shouldSaveStencil);
-                shouldSaveRendering                 = EditorGUILayout.ToggleLeft(GetLoc("sRenderingSetting"), shouldSaveRendering);
-                shouldSaveOutlineRendering          = EditorGUILayout.ToggleLeft(GetLoc("sOutline") + " - " + GetLoc("sRenderingSetting"), shouldSaveOutlineRendering);
+                shouldSaveStencil                   = EditorGUILayout.ToggleLeft(S("sStencilSetting"), shouldSaveStencil);
+                shouldSaveRendering                 = EditorGUILayout.ToggleLeft(S("sRenderingSetting"), shouldSaveRendering);
+                shouldSaveOutlineRendering          = EditorGUILayout.ToggleLeft(S("sOutline") + " - " + S("sRenderingSetting"), shouldSaveOutlineRendering);
                 EditorGUI.indentLevel--;
                 EditorGUILayout.EndVertical();
             }
 
             // Textures
             EditorGUILayout.Space();
-            isShowTextures = lilEditorGUI.DrawSimpleFoldout(GetLoc("sPresetTexture"), isShowTextures);
+            isShowTextures = lilEditorGUI.DrawSimpleFoldout(S("sPresetTexture"), isShowTextures);
             if(isShowTextures)
             {
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -528,7 +528,7 @@ public class lilToonPreset : ScriptableObject
             }
         }
 
-        public static string GetLoc(string value) { return lilLanguageManager.GetLoc(value); }
+        private static string S(string value) { return Localization.S(value); }
     }
     #endregion
 }

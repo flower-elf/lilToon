@@ -9,6 +9,10 @@ namespace lilToon
         public const string currentVersionName = "1.7.2";
         public const int currentVersionValue = 42;
 
+        internal const string TOOL_NAME = "lilToon";
+        internal const string PACKAGE_NAME = "liltoon";
+        internal const string PACKAGE_NAME_FULL = "jp.lilxyzw." + PACKAGE_NAME;
+
         internal const string boothURL = "https://lilxyzw.booth.pm/";
         internal const string githubURL = "https://github.com/lilxyzw/lilToon";
         internal const string versionInfoURL = "https://raw.githubusercontent.com/lilxyzw/lilToon/master/version.json";

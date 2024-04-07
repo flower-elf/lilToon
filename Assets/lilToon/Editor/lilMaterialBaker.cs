@@ -27,23 +27,23 @@ namespace lilToon
             bool shouldNotBakeAll = bakeType == 0 && mainColor == Color.white && mainTexHSVG == lilConstants.defaultHSVG && mainGradationStrength == 0.0 && useMain2ndTex == 0.0 && useMain3rdTex == 0.0;
             if(cannotBake1st)
             {
-                EditorUtility.DisplayDialog(GetLoc("sDialogCannotBake"), GetLoc("sDialogSetMainTex"), GetLoc("sOK"));
+                EditorUtility.DisplayDialog(S("sDialogCannotBake"), S("sDialogSetMainTex"), S("sOK"));
             }
             else if(shouldNotBakeColor)
             {
-                EditorUtility.DisplayDialog(GetLoc("sDialogNoNeedBake"), GetLoc("sDialogNoChange"), GetLoc("sOK"));
+                EditorUtility.DisplayDialog(S("sDialogNoNeedBake"), S("sDialogNoChange"), S("sOK"));
             }
             else if(shouldNotBake2nd)
             {
-                EditorUtility.DisplayDialog(GetLoc("sDialogNoNeedBake"), GetLoc("sDialogNotUse2nd"), GetLoc("sOK"));
+                EditorUtility.DisplayDialog(S("sDialogNoNeedBake"), S("sDialogNotUse2nd"), S("sOK"));
             }
             else if(shouldNotBake3rd)
             {
-                EditorUtility.DisplayDialog(GetLoc("sDialogNoNeedBake"), GetLoc("sDialogNotUse3rd"), GetLoc("sOK"));
+                EditorUtility.DisplayDialog(S("sDialogNoNeedBake"), S("sDialogNotUse3rd"), S("sOK"));
             }
             else if(shouldNotBakeAll)
             {
-                EditorUtility.DisplayDialog(GetLoc("sDialogNoNeedBake"), GetLoc("sDialogNotUseAll"), GetLoc("sOK"));
+                EditorUtility.DisplayDialog(S("sDialogNoNeedBake"), S("sDialogNotUseAll"), S("sOK"));
             }
             else
             {
@@ -206,7 +206,7 @@ namespace lilToon
             var useMain3rdTex = dics.GetFloat("_UseMain3rdTex");
             var mainTex = dics.GetTexture("_MainTex");
             bool shouldNotBakeAll = mainColor == Color.white && mainTexHSVG == lilConstants.defaultHSVG && mainGradationStrength == 0.0 && useMain2ndTex == 0.0 && useMain3rdTex == 0.0;
-            if(!shouldNotBakeAll && EditorUtility.DisplayDialog(GetLoc("sDialogRunBake"), GetLoc("sDialogBakeMain"), GetLoc("sYes"), GetLoc("sNo")))
+            if(!shouldNotBakeAll && EditorUtility.DisplayDialog(S("sDialogRunBake"), S("sDialogBakeMain"), S("sYes"), S("sNo")))
             {
                 bool bake2nd = useMain2ndTex != 0.0;
                 bool bake3rd = useMain3rdTex != 0.0;
@@ -359,7 +359,7 @@ namespace lilToon
 
             bool shouldNotBakeAll = useShadow == 0.0 && shadowColor == Color.white && shadowColorTex == null && shadowStrengthMask == null;
             bool shouldBake = true;
-            if(shouldShowDialog) shouldBake = EditorUtility.DisplayDialog(GetLoc("sDialogRunBake"), GetLoc("sDialogBakeShadow"), GetLoc("sYes"), GetLoc("sNo"));
+            if(shouldShowDialog) shouldBake = EditorUtility.DisplayDialog(S("sDialogRunBake"), S("sDialogBakeShadow"), S("sYes"), S("sNo"));
             if(!shouldNotBakeAll && shouldBake)
             {
                 // run bake
@@ -467,7 +467,7 @@ namespace lilToon
             var matcapColor = dics.GetColor("_MatCapColor");
             var matcapTex = dics.GetTexture("_MatCapTex");
             bool shouldNotBakeAll = matcapColor == Color.white;
-            if(!shouldNotBakeAll && EditorUtility.DisplayDialog(GetLoc("sDialogRunBake"), GetLoc("sDialogBakeMatCap"), GetLoc("sYes"), GetLoc("sNo")))
+            if(!shouldNotBakeAll && EditorUtility.DisplayDialog(S("sDialogRunBake"), S("sDialogBakeMatCap"), S("sYes"), S("sNo")))
             {
                 // run bake
                 var bufMainTexture = matcapTex as Texture2D;
@@ -519,7 +519,7 @@ namespace lilToon
             var emissionBlendMask = dics.GetTexture("_EmissionBlendMask") as Texture2D;
             var mainTex = dics.GetTexture("_MainTex");
             bool shouldNotBakeAll = matcapBlendMask == null && rimColorTex == null && emissionBlendMask == null;
-            if(!shouldNotBakeAll && EditorUtility.DisplayDialog(GetLoc("sDialogRunBake"), GetLoc("sDialogBakeTriMask"), GetLoc("sYes"), GetLoc("sNo")))
+            if(!shouldNotBakeAll && EditorUtility.DisplayDialog(S("sDialogRunBake"), S("sDialogBakeTriMask"), S("sYes"), S("sNo")))
             {
                 // run bake
                 var bufMainTexture = mainTex as Texture2D;
@@ -654,7 +654,7 @@ namespace lilToon
             var outlineTex = dics.GetTexture("_OutlineTex");
             var mainTex = dics.GetTexture("_MainTex");
             bool shouldNotBakeOutline = outlineTex == null || outlineTexHSVG == lilConstants.defaultHSVG;
-            if(!shouldNotBakeOutline && EditorUtility.DisplayDialog(GetLoc("sDialogRunBake"), GetLoc("sDialogBakeOutline"), GetLoc("sYes"), GetLoc("sNo")))
+            if(!shouldNotBakeOutline && EditorUtility.DisplayDialog(S("sDialogRunBake"), S("sDialogBakeOutline"), S("sYes"), S("sNo")))
             {
                 // run bake
                 var bufMainTexture = outlineTex as Texture2D;
@@ -1321,9 +1321,9 @@ namespace lilToon
             return new Color(Mathf.Clamp01(color.r), Mathf.Clamp01(color.g), Mathf.Clamp01(color.b), Mathf.Clamp01(color.a));
         }
 
-        private static string GetLoc(string value)
+        private static string S(string value)
         {
-            return lilLanguageManager.GetLoc(value);
+            return Localization.S(value);
         }
 
         private static void SetupMaterialWithRenderingMode(SerializedObject so, (Dictionary<string, SerializedProperty> ts, Dictionary<string, SerializedProperty> fs, Dictionary<string, SerializedProperty> cs) dics, RenderingMode renderingMode, TransparentMode transparentMode, bool isoutl, bool islite, bool istess, bool ismulti)

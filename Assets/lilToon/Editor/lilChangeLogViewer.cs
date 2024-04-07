@@ -123,7 +123,7 @@ namespace lilToon
             }
             else
             {
-                EditorGUILayout.LabelField(lilLanguageManager.GetLoc("sChangelogLoadFailed"));
+                EditorGUILayout.LabelField(Localization.S("sChangelogLoadFailed"));
             }
             EditorGUILayout.EndScrollView();
 

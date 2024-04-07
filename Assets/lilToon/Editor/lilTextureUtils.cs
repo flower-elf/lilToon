@@ -19,7 +19,7 @@ namespace lilToon
         #region
         internal static void GradientEditor(Material material, Gradient ingrad, MaterialProperty texprop, bool setLinear = false)
         {
-            ingrad = EditorGUILayout.GradientField(lilLanguageManager.GetLoc("sGradColor"), ingrad);
+            ingrad = EditorGUILayout.GradientField(Localization.S("sGradColor"), ingrad);
             GUILayout.BeginHorizontal();
             GUILayout.Space(EditorGUI.indentLevel * 16);
             if(GUILayout.Button("Test"))
@@ -39,7 +39,7 @@ namespace lilToon
         internal static void GradientEditor(Material material, string emissionName, Gradient ingrad, MaterialProperty texprop, bool setLinear = false)
         {
             ingrad = MaterialToGradient(material, emissionName);
-            ingrad = EditorGUILayout.GradientField(lilLanguageManager.GetLoc("sGradColor"), ingrad);
+            ingrad = EditorGUILayout.GradientField(Localization.S("sGradColor"), ingrad);
             GradientToMaterial(material, emissionName, ingrad);
             GUILayout.BeginHorizontal();
             GUILayout.Space(EditorGUI.indentLevel * 16);
@@ -247,7 +247,7 @@ namespace lilToon
                     duration = BitConverter.ToInt32(origGif.GetPropertyItem(20736).Value, 0);
                     int finalWidth = 1;
                     int finalHeight = 1;
-                    if(EditorUtility.DisplayDialog(lilLanguageManager.GetLoc("sDialogGifToAtlas"), lilLanguageManager.GetLoc("sUtilGif2AtlasPow2"), lilLanguageManager.GetLoc("sYes"), lilLanguageManager.GetLoc("sNo")))
+                    if(EditorUtility.DisplayDialog(Localization.S("sDialogGifToAtlas"), Localization.S("sUtilGif2AtlasPow2"), Localization.S("sYes"), Localization.S("sNo")))
                     {
                         while(finalWidth < origGif.Width * loopXY) finalWidth *= 2;
                         while(finalHeight < origGif.Height * loopXY) finalHeight *= 2;
@@ -402,7 +402,7 @@ namespace lilToon
             if(path.EndsWith(".cube")) texOrig = ReadCube(path);
             if(texOrig == null)
             {
-                EditorUtility.DisplayDialog("[lilToon] Convert LUT to PNG", lilLanguageManager.GetLoc("sUtilInvalidFormat"), lilLanguageManager.GetLoc("sOK"));
+                EditorUtility.DisplayDialog("[lilToon] Convert LUT to PNG", Localization.S("sUtilInvalidFormat"), Localization.S("sOK"));
                 return;
             }
             var tex = ConvertLUT3Dto2D(texOrig);
