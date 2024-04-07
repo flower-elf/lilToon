@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace lilToon
 {
-    internal class Localization
+    internal static class Localization
     {
         // 設定ファイルの保存先
         private static readonly string PATH_PREF = $"{UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder}/jp.lilxyzw";
@@ -15,13 +16,15 @@ namespace lilToon
         private static string PATH_SETTING => $"{PATH_PREF}/{FILENAME_SETTING}";
 
         // 言語
-        private static List<Dictionary<string, string>> languages = new List<Dictionary<string, string>>();
+        private static List<Dictionary<string, string>> languages;
         private static List<string> codes = new List<string>();
         private static string[] names;
         private static int number;
+        internal static Action changeLanguageCallback;
 
         internal static void LoadDatas()
         {
+            languages = new List<Dictionary<string, string>>();
             var paths = Directory.GetFiles(lilDirectoryManager.GetLocalizationPath(), "*.json");
             var tmpNames = new List<string>();
             foreach(var path in paths)
@@ -148,6 +151,7 @@ namespace lilToon
             number = EditorGUILayout.Popup("Editor Language", number, names);
             if(EditorGUI.EndChangeCheck())
             {
+                changeLanguageCallback?.Invoke();
                 SaveLanguageSettings();
                 return true;
             }
@@ -177,7 +181,7 @@ namespace lilToon
     }
 
     // なるべく安全に保存・読み込み
-    internal class SafeIO
+    internal static class SafeIO
     {
         internal static void SaveFile(string path, string content)
         {
