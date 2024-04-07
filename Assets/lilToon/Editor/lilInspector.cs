@@ -3645,7 +3645,10 @@ namespace lilToon
                 labelStyle.normal.textColor = Color.red;
             }
 
+            EditorGUILayout.BeginHorizontal();
             edSet.isShowWebPages = lilEditorGUI.DrawSimpleFoldout(versionLabel, edSet.isShowWebPages, labelStyle, isCustomEditor);
+            if(GUILayout.Button(GetLoc("sChangelog"))) lilChangeLogWindow.Init();
+            EditorGUILayout.EndHorizontal();
             if(edSet.isShowWebPages)
             {
                 EditorGUI.indentLevel++;

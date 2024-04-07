@@ -9,6 +9,8 @@ namespace lilToon
         public bool startupEnd;
         public string modifiedShaders;
         public string versionInfo;
+        public string changelogEn;
+        public string changelogJp;
     }
 }
 #endif

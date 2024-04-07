@@ -137,6 +137,8 @@ namespace lilToon
             if(string.IsNullOrEmpty(lilEditorParameters.instance.versionInfo))
             {
                 CoroutineHandler.StartStaticCoroutine(GetLatestVersionInfo());
+                CoroutineHandler.StartStaticCoroutine(lilChangeLogViewer.GetChangelogEn());
+                CoroutineHandler.StartStaticCoroutine(lilChangeLogViewer.GetChangelogJp());
             }
 
             //------------------------------------------------------------------------------------------------------------------------------

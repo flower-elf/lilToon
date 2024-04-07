@@ -525,6 +525,8 @@ sAnchorOptimization	other?id=Optimization	other?id=最適化	other?id=Optimizati
 sAnchorShaderSetting	other?id=Shader-Setting	other?id=シェーダー設定	other?id=Shader-Setting	other?id=Shader-Setting	other?id=Shader-Setting
 sReadmeURL	https://lilxyzw.github.io/lilToon/#/ja-jp/	https://lilxyzw.github.io/lilToon/#/ja-jp/	https://lilxyzw.github.io/lilToon/#/ja-jp/	https://lilxyzw.github.io/lilToon/#/ja-jp/	https://lilxyzw.github.io/lilToon/#/ja-jp/
 sReadmeAnchorProblem	other/qa	other/qa	other/qa	other/qa	other/qa
+sChangelog	Changelog	変更履歴	변경 로그	变更日志	變更日誌
+sChangelogLoadFailed	Failed to load changelog.	変更履歴を読み込めませんでした。	변경 로그를 로드하지 못했습니다.	无法加载变更日志。	無法載入變更日誌。
 sHelp	Help	ヘルプ	헬프	帮助	幫助
 sCommonProblems	Common Problems	Q&A	일반적인 문제	常见问题	常見問題
 sUtilGif2AtlasPow2	Do you want to adjust the texture resolution to power of 2?	テクスチャの解像度を2の累乗に合わせますか？	텍스처의 해상도를 2의 거듭 제곱에 맞게 싶으십니까?	您要把纹理分辨率调整为 2 的 n 次方吗？	你要將貼圖解析度尺寸調整成 2 的 n 次方嗎？
