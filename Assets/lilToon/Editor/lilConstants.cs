@@ -6,8 +6,8 @@ namespace lilToon
 {
     public class lilConstants
     {
-        public const string currentVersionName = "1.7.2";
-        public const int currentVersionValue = 42;
+        public const string currentVersionName = "2.0.0";
+        public const int currentVersionValue = 43;
 
         internal const string TOOL_NAME = "lilToon";
         internal const string PACKAGE_NAME = "liltoon";
