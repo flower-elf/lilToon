@@ -57,6 +57,7 @@ namespace lilToon.External
                 var materials = GetMaterialsFromGameObject(avatarGameObject);
                 var clips = GetAnimationClipsFromGameObject(avatarGameObject);
                 lilToonSetting.SetShaderSettingBeforeBuild(materials, clips);
+                lilMaterialUtils.SetupMultiMaterial(materials, clips);
                 #if !LILTOON_VRCSDK3_3
                 EditorApplication.delayCall -= lilToonSetting.SetShaderSettingAfterBuild;
                 EditorApplication.delayCall += lilToonSetting.SetShaderSettingAfterBuild;
